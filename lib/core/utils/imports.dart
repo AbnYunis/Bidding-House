@@ -1,0 +1,12 @@
+export 'package:go_router/go_router.dart';
+export 'function/animation_page.dart';
+export 'package:bidding_house/core/utils/mange_routers/routers.dart';
+export 'package:bidding_house/features/splash/presentations/views/splash_view.dart';
+export 'package:flutter/material.dart';
+export 'dart:io';
+export 'package:image_picker/image_picker.dart';
+export 'package:bidding_house/core/utils/assets.dart';
+export 'package:bidding_house/core/utils/mange_routers/app_router.dart';
+export 'package:bidding_house/features/splash/presentations/views/widgets/splash_body.dart';
+export 'package:google_fonts/google_fonts.dart';
+export 'package:bidding_house/core/utils/media_query.dart';
