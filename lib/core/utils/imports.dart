@@ -10,3 +10,4 @@ export 'package:bidding_house/core/utils/mange_routers/app_router.dart';
 export 'package:bidding_house/features/splash/presentations/views/widgets/splash_body.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:bidding_house/core/utils/media_query.dart';
+export 'package:firebase_core/firebase_core.dart';
