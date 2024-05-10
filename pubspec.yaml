@@ -41,6 +41,9 @@ dependencies:
   image_picker: ^1.1.1
   cached_network_image: ^3.3.1
   shimmer: ^3.0.0
+  persistent_bottom_nav_bar_v2: ^4.2.8
+  iconify_flutter: ^0.0.5
+  flutter_credit_card: ^4.0.1
 
 dev_dependencies:
   flutter_test:

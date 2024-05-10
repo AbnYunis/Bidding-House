@@ -5,7 +5,18 @@ abstract class AppRouter {
     routes: [
       Routers.goRouteFade(const SplashView(), '/'),
       Routers.goRouteFade(const AuthView(), Routers.auth),
-      Routers.goRouteFade(const HomeView(), Routers.home),
+      Routers.goRouteFade(const CustomBNB(), Routers.bnb),
+      Routers.goRouteFade(const AuctionView(), Routers.auction),
+      Routers.goRouteFade(const PaymentView(), Routers.payment),
+      GoRoute(
+        path: Routers.addPost,
+        builder: (context, state) => AddPostView(image: state.extra as File,),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child: AddPostView(image: state.extra as File,),
+        ),
+      )
     ],
   );
 }

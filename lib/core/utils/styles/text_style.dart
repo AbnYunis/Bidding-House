@@ -38,6 +38,20 @@ class AppTextStyles {
       fontWeight: FontWeight.w800,
     );
   }
+  static TextStyle style8_400(BuildContext context, CustomColor customColor) {
+    return GoogleFonts.museoModerno(
+      color: getColor(customColor),
+      fontSize: 8.w(context),
+      fontWeight: FontWeight.w400,
+    );
+  }
+  static TextStyle style10_700(BuildContext context, CustomColor customColor) {
+    return GoogleFonts.museoModerno(
+      color: getColor(customColor),
+      fontSize: 10.w(context),
+      fontWeight: FontWeight.w700,
+    );
+  }
 
   static TextStyle style14_400(BuildContext context, CustomColor customColor) {
     return GoogleFonts.museoModerno(
@@ -101,6 +115,14 @@ class AppTextStyles {
       color: getColor(customColor),
       fontSize: 12.w(context),
       fontWeight: FontWeight.w800,
+    );
+  }
+  static TextStyle style7_700(
+      BuildContext context, CustomColor customColor) {
+    return GoogleFonts.museoModerno(
+      color: getColor(customColor),
+      fontSize: 7.w(context),
+      fontWeight: FontWeight.w700,
     );
   }
 }

@@ -2,8 +2,11 @@ import 'package:bidding_house/core/utils/imports.dart';
 
 abstract class Routers {
   static const auth = '/auth';
-  static const home = '/home';
+  static const bnb = '/bnb';
   static const category = '/category';
+  static const auction = '/auction';
+  static const payment = '/payment';
+  static const addPost = '/addPost';
   static GoRoute goRouteFade(Widget screen, String path) {
     return GoRoute(
       path: path,

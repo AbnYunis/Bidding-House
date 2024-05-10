@@ -1,11 +1,7 @@
-
-
-
-
 import 'package:bidding_house/core/utils/imports.dart';
 
-Future<File> chooseImage(context,imageFile)async{
-  await  showDialog(
+Future<File> chooseImage(context, imageFile) async {
+  await showDialog(
       context: context,
       builder: (context1) {
         return AlertDialog(
@@ -15,11 +11,11 @@ Future<File> chooseImage(context,imageFile)async{
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                title:const  Text("Camera"),
+                title: const Text("Camera"),
                 onTap: () {
                   pickImage(ImageSource.camera, imageFile).then((value) {
                     imageFile = value;
-                     Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   });
                 },
                 trailing: Icon(
@@ -32,7 +28,7 @@ Future<File> chooseImage(context,imageFile)async{
                 onTap: () {
                   pickImage(ImageSource.gallery, imageFile).then((value) {
                     imageFile = value;
-                     Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   });
                 },
                 trailing: Icon(
@@ -44,9 +40,10 @@ Future<File> chooseImage(context,imageFile)async{
           ),
         );
       });
-return imageFile;
+  return imageFile;
 }
-Future<File> pickImage(ImageSource source,image) async {
+
+Future<File> pickImage(ImageSource source, image) async {
   final picker = ImagePicker();
   final pickedFile = await picker.pickImage(source: source);
 

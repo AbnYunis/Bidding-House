@@ -11,7 +11,6 @@ class MyImage extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.w(context)),
       child: CachedNetworkImage(
-      
         imageUrl: imageUrl,
         placeholder: (context, url) => Shimmer.fromColors(
           baseColor: Colors.grey[300]!,

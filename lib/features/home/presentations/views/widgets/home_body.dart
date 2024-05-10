@@ -1,4 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/features/category-page/presentation/views/category-view.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -30,8 +31,18 @@ class HomeBody extends StatelessWidget {
                 mainAxisSpacing: 20.h(context),
               ),
               itemCount: itemsName.length,
-              itemBuilder: (context, index) => CustomHomeItem(
-                text: itemsName[index],
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            CategoryView(title: itemsName[index]),
+                      ));
+                },
+                child: CustomHomeItem(
+                  text: itemsName[index],
+                ),
               ),
             ),
           ),

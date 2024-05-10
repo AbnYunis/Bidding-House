@@ -46,7 +46,7 @@ class AuthBody extends StatelessWidget {
                   onPressedLogin: () {
 
                     if (formKey.currentState!.validate()) {
-                      context.go(Routers.home);
+                      context.go(Routers.bnb);
                     }
                   },
                   onPressedSignUp: () {
