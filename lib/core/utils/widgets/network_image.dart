@@ -17,15 +17,15 @@ class MyImage extends StatelessWidget {
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-            width: 130.w(context),
-            height: 130.h(context),
+            width: 140.w(context),
+            height: 140.h(context),
             color: Colors.grey,
           ),
         ),
         errorWidget: (context, url, error) => const Icon(Icons.error),
         fit: BoxFit.cover,
-        width: 130.w(context),
-        height: 130.h(context),
+        width: 140.w(context),
+        height: 140.h(context),
       ),
     );
   }
