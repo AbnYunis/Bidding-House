@@ -1,4 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/core/utils/styles/text_style.dart';
 
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
@@ -11,8 +12,9 @@ class _SplashBodyState extends State<SplashBody> {
   @override
   void initState() {
     super.initState();
-   // navigateToHome();
+    navigateToHome();
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,23 +24,30 @@ class _SplashBodyState extends State<SplashBody> {
           height: 378.h(context),
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(AssetService.splash1),
-                fit: BoxFit.cover),
+                image: AssetImage(AssetService.splash1), fit: BoxFit.cover),
           ),
         ),
         SizedBoxApp(
-          h: 67.h(context),),
+          h: 67.h(context),
+        ),
         Stack(
           alignment: Alignment.center,
           children: [
-            Image.asset(AssetService.splash2,height: 184.h(context),width: 190.w(context),),
+            Image.asset(
+              AssetService.splash2,
+              height: 184.h(context),
+              width: 190.w(context),
+            ),
             Container(
               height: 184.h(context),
               width: 190.w(context),
-              decoration: const BoxDecoration(
-                  color: Colors.black12
-              ),
-              child:  const Center(child: Text("Bidding\nHouse",style: TextStyle(fontSize: 40),textAlign: TextAlign.center,)),
+              decoration: const BoxDecoration(color: Colors.black12),
+              child: Center(
+                  child: Text(
+                "Bidding\nHouse",
+                style: AppTextStyles.style46_800(context, CustomColor.white),
+                textAlign: TextAlign.center,
+              )),
             ),
           ],
         ),
@@ -48,9 +57,9 @@ class _SplashBodyState extends State<SplashBody> {
 
   void navigateToHome() {
     Future.delayed(
-      const Duration(milliseconds: 3000),
+      const Duration(milliseconds: 2500),
       () {
-        //GoRouter.of(context).go(Routers.onBoarding);
+        context.go(Routers.auth);
       },
     );
   }

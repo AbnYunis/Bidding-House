@@ -22,8 +22,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.black,
-        textTheme: GoogleFonts.museoModernoTextTheme()
-            .copyWith(bodyMedium: const TextStyle(color: Colors.white)),
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.black,
+            statusBarIconBrightness: Brightness.light,
+          ),
+        ),
       ),
       routerConfig: AppRouter.router,
     );
