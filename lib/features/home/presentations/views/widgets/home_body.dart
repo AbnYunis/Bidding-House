@@ -23,16 +23,17 @@ class HomeBody extends StatelessWidget {
           ),
           Expanded(
             child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 130.w(context) / 173.h(context),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20.w(context),
-                  mainAxisSpacing: 20.h(context),
-                ),
-                itemCount: itemsName.length,
-                itemBuilder: (context, index) => CustomHomeItem(
-                      text: itemsName[index],
-                    )),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 130.w(context) / 173.h(context),
+                crossAxisCount: 2,
+                crossAxisSpacing: 20.w(context),
+                mainAxisSpacing: 20.h(context),
+              ),
+              itemCount: itemsName.length,
+              itemBuilder: (context, index) => CustomHomeItem(
+                text: itemsName[index],
+              ),
+            ),
           ),
         ],
       ),

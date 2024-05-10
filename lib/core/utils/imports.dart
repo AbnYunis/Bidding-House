@@ -26,3 +26,6 @@ export 'package:bidding_house/core/utils/widgets/network_image.dart';
 export 'package:bidding_house/features/home/presentations/views/home_view.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:shimmer/shimmer.dart';
+export 'package:bidding_house/features/category-page/presentation/views/widgets/category-body.dart';
+export 'package:bidding_house/features/category-page/presentation/views/widgets/category_appbar.dart';
+export 'package:bidding_house/features/category-page/presentation/views/widgets/custom_category_item.dart';
