@@ -52,5 +52,21 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle style16_800(
+      BuildContext context, CustomColor customColor) {
+    return GoogleFonts.museoModerno(
+      color: getColor(customColor),
+      fontSize: 16.w(context),
+      fontWeight: FontWeight.w800,
+    );
+  }
 
+  static TextStyle style20_800(
+      BuildContext context, CustomColor customColor) {
+    return GoogleFonts.museoModerno(
+      color: getColor(customColor),
+      fontSize: 20.w(context),
+      fontWeight: FontWeight.w800,
+    );
+  }
 }

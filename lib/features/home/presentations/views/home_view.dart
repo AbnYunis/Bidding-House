@@ -1,5 +1,4 @@
-import 'package:bidding_house/features/home/presentations/views/widgets/home_body.dart';
-import 'package:flutter/material.dart';
+import 'package:bidding_house/core/utils/imports.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

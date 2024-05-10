@@ -5,6 +5,7 @@ abstract class AppRouter {
     routes: [
       Routers.goRouteFade(const SplashView(), '/'),
       Routers.goRouteFade(const AuthView(), Routers.auth),
+      Routers.goRouteFade(const HomeView(), Routers.home),
     ],
   );
 }

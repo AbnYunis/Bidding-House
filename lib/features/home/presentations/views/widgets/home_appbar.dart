@@ -6,7 +6,6 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final w=SizeApp(context).width;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -19,7 +18,7 @@ class HomeAppBar extends StatelessWidget {
         ),
         Text(
           'All Classifications',
-          style: TextStyle(fontSize: w*.055, fontWeight: FontWeight.w800),
+          style: AppTextStyles.style20_800(context, CustomColor.white),
         ),
         IconButton(
           onPressed: () {},

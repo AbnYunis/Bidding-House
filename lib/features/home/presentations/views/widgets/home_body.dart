@@ -1,8 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
 
-import 'custom_home_item.dart';
-import 'home_appbar.dart';
-
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
@@ -13,30 +10,29 @@ class HomeBody extends StatelessWidget {
       'Hours',
       'Cars',
       'Mobiles',
-      'Clothes and Shoes',
+      'Clothes & Shoes',
       'Paint Art',
     ];
-    final h = SizeApp(context).height;
-    final w = SizeApp(context).width;
     return Padding(
-      padding:  EdgeInsets.all(w*.05),
+      padding: EdgeInsets.symmetric(horizontal: 26.w(context)),
       child: Column(
         children: [
           const HomeAppBar(),
-           SizedBoxApp(
-           h:  h*.04,
+          SizedBoxApp(
+            h: 57.h(context),
           ),
           Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: h*.03,
-              crossAxisSpacing: w*.04,
-              children: List.generate(
-                  6,
-                  (index) => CustomHomeItem(
-                        text: itemsName[index],
-                      )),
-            ),
+            child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 130.w(context) / 173.h(context),
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 20.w(context),
+                  mainAxisSpacing: 20.h(context),
+                ),
+                itemCount: itemsName.length,
+                itemBuilder: (context, index) => CustomHomeItem(
+                      text: itemsName[index],
+                    )),
           ),
         ],
       ),

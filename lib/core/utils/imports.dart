@@ -19,3 +19,10 @@ export 'package:bidding_house/features/auth/presentations/views/widgets/auth_but
 export 'package:bidding_house/features/auth/presentations/views/widgets/custom_text_field.dart';
 export 'package:bidding_house/features/auth/presentations/views/widgets/forget_pass.dart';
 export 'package:bidding_house/features/auth/presentations/views/widgets/logo_widget.dart';
+export 'package:bidding_house/features/home/presentations/views/widgets/custom_home_item.dart';
+export 'package:bidding_house/features/home/presentations/views/widgets/home_appbar.dart';
+export 'package:bidding_house/features/home/presentations/views/widgets/home_body.dart';
+export 'package:bidding_house/core/utils/widgets/network_image.dart';
+export 'package:bidding_house/features/home/presentations/views/home_view.dart';
+export 'package:cached_network_image/cached_network_image.dart';
+export 'package:shimmer/shimmer.dart';
