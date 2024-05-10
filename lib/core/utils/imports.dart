@@ -4,6 +4,7 @@ export 'package:bidding_house/core/utils/mange_routers/routers.dart';
 export 'package:bidding_house/features/splash/presentations/views/splash_view.dart';
 export 'package:flutter/material.dart';
 export 'dart:io';
+export 'package:flutter/services.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:bidding_house/core/utils/assets.dart';
 export 'package:bidding_house/core/utils/mange_routers/app_router.dart';
@@ -11,3 +12,10 @@ export 'package:bidding_house/features/splash/presentations/views/widgets/splash
 export 'package:google_fonts/google_fonts.dart';
 export 'package:bidding_house/core/utils/media_query.dart';
 export 'package:firebase_core/firebase_core.dart';
+export 'package:bidding_house/features/auth/presentations/views/widgets/auth_body.dart';
+export 'package:bidding_house/features/auth/presentations/views/auth_view.dart';
+export 'package:bidding_house/core/utils/styles/text_style.dart';
+export 'package:bidding_house/features/auth/presentations/views/widgets/auth_buttons.dart';
+export 'package:bidding_house/features/auth/presentations/views/widgets/custom_text_field.dart';
+export 'package:bidding_house/features/auth/presentations/views/widgets/forget_pass.dart';
+export 'package:bidding_house/features/auth/presentations/views/widgets/logo_widget.dart';
