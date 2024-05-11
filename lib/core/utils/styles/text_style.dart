@@ -124,5 +124,12 @@ class AppTextStyles {
       fontSize: 7.w(context),
       fontWeight: FontWeight.w700,
     );
+  }  static TextStyle style24_700(
+      BuildContext context, CustomColor customColor) {
+    return GoogleFonts.museoModerno(
+      color: getColor(customColor),
+      fontSize: 24.w(context),
+      fontWeight: FontWeight.w700,
+    );
   }
 }

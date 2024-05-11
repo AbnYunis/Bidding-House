@@ -1,4 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/features/bid/presentation/views/bid_view.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({super.key});
@@ -6,7 +7,8 @@ class CustomCategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 10.w(context),vertical: 10.h(context)),
+      padding: EdgeInsets.symmetric(
+          horizontal: 10.w(context), vertical: 10.h(context)),
       child: Row(
         children: [
           const MyImage(
@@ -62,7 +64,10 @@ class CustomCategoryItem extends StatelessWidget {
                     MaterialButton(
                       height: 25.h(context),
                       minWidth: 50.w(context),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const BidView()));
+                      },
                       color: Colors.green,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7)),

@@ -29,6 +29,7 @@ export 'package:shimmer/shimmer.dart';
 export 'package:bidding_house/core/utils/widgets/custom_bnb.dart';
 export 'package:bidding_house/features/category-page/presentation/views/widgets/category-body.dart';
 export 'package:bidding_house/features/category-page/presentation/views/widgets/category_appbar.dart';
+export 'package:bidding_house/features/bid/presentation/views/widgets/bid_body.dart';
 export 'package:bidding_house/features/category-page/presentation/views/widgets/custom_category_item.dart';
 export 'package:iconify_flutter/iconify_flutter.dart';
 export 'package:iconify_flutter/icons/carbon.dart';
@@ -45,3 +46,5 @@ export 'package:bidding_house/features/add_post/presentations/views/widgets/add_
 export 'package:bidding_house/features/add_post/presentations/views/widgets/add_post_appbar.dart';
 export 'package:bidding_house/features/add_post/presentations/views/add_post_view.dart';
 export 'package:bidding_house/features/add_post/presentations/views/widgets/drop_down.dart';
+export  'package:bidding_house/features/bid/presentation/views/widgets/image_section.dart';
+export  'package:bidding_house/features/bid/presentation/views/widgets/second_bid_section.dart';
