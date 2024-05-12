@@ -18,7 +18,7 @@ Future<File> chooseImage(context, imageFile) async {
                     Navigator.of(context).pop();
                   });
                 },
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.camera_alt_outlined,
                   color: Colors.red,
                 ),
@@ -31,7 +31,7 @@ Future<File> chooseImage(context, imageFile) async {
                     Navigator.of(context).pop();
                   });
                 },
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.image,
                   color: Colors.red,
                 ),

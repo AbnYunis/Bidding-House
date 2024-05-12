@@ -1,16 +1,18 @@
 import 'package:bidding_house/core/utils/imports.dart';
-import 'package:bidding_house/features/bid/presentation/views/bid_view.dart';
 
 class AuctionBody extends StatelessWidget {
   const AuctionBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 26.w(context)),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 26.w(context)),
       child: Column(
         children: [
-          const AuctionAppBar(),
+          Text(
+            "Auction",
+            style: AppTextStyles.style20_800(context, CustomColor.white),
+          ),
           SizedBoxApp(
             h: 57.h(context),
           ),
@@ -24,55 +26,59 @@ class AuctionBody extends StatelessWidget {
               ),
               itemCount: 8,
               itemBuilder: (context, index) => GestureDetector(
-                onTap: () {},
-                child: Column(
-                  children: [
-                    const MyImage(imageUrl: "https://picsum.photos/200/300"),
-                    SizedBoxApp(h: 3.h(context)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Arabian horse",
-                              style: AppTextStyles.style10_700(
-                                  context, CustomColor.white),
-                            ),
-                            SizedBoxApp(h: 3.h(context)),
-                            Text(
-                              "current Bid",
-                              style: AppTextStyles.style7_700(
-                                  context, CustomColor.grey),
-                            ),
-                            Text(
-                              "\$2500",
-                              style: AppTextStyles.style8_400(
-                                  context, CustomColor.yellow),)
-                          ],
-                        ),
-                        SizedBoxApp(w: 10.w(context)),
-                        MaterialButton(
-                          height: 25.h(context),
-                          minWidth: 50.w(context),
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BidView()));
-                          },
-                          color: Colors.green,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7)),
-                          child: const Text(
-                            'Bid Now',
-                            style: TextStyle(fontSize: 9, color: Colors.white),
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      const MyImage(imageUrl: "https://picsum.photos/200/300"),
+                      SizedBoxApp(h: 3.h(context)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Arabian horse",
+                                style: AppTextStyles.style10_700(
+                                    context, CustomColor.white),
+                              ),
+                              SizedBoxApp(h: 3.h(context)),
+                              Text(
+                                "current Bid",
+                                style: AppTextStyles.style7_700(
+                                    context, CustomColor.grey),
+                              ),
+                              Text(
+                                "\$2500",
+                                style: AppTextStyles.style8_400(
+                                    context, CustomColor.yellow),
+                              )
+                            ],
                           ),
-                        ),
-                      ],
-                    )
-                  ],
-                )
-              ),
+                          SizedBoxApp(w: 10.w(context)),
+                          MaterialButton(
+                            height: 25.h(context),
+                            minWidth: 50.w(context),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const BidView()));
+                            },
+                            color: Colors.green,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7)),
+                            child: const Text(
+                              'Bid Now',
+                              style:
+                                  TextStyle(fontSize: 9, color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
             ),
           ),
         ],

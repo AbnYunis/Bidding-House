@@ -1,8 +1,6 @@
 
-import 'package:bidding_house/core/utils/function/load_image.dart';
+
 import 'package:bidding_house/core/utils/imports.dart';
-import 'package:bidding_house/features/payment/presentations/views/payment_view.dart';
-import 'package:iconify_flutter/icons/material_symbols.dart';
 
 class CustomBNB extends StatefulWidget {
   const CustomBNB({super.key});
@@ -21,7 +19,7 @@ class _CustomBNBState extends State<CustomBNB> {
       const HomeView(),
       const AuctionView(),
       const BidsView(),
-      const PaymentView(),
+      const EditProfileView(),
     ];
     List<String> icons = [
       (MaterialSymbols.home_outline_rounded),
@@ -36,7 +34,7 @@ class _CustomBNBState extends State<CustomBNB> {
         extendBody: true,
         body: screens[currentIndex],
         bottomNavigationBar: Container(
-          color: Color(0xFF2E2E2F),
+          color: const Color(0xFF2E2E2F),
           width: double.infinity,
           height: 64.h(context),
           child: Row(

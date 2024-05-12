@@ -1,5 +1,4 @@
 import 'package:bidding_house/core/utils/imports.dart';
-import 'package:bidding_house/features/bid/presentation/views/bid_view.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   const CustomCategoryItem({super.key});

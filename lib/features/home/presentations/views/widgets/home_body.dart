@@ -1,5 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
-import 'package:bidding_house/features/category-page/presentation/views/category-view.dart';
+
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});

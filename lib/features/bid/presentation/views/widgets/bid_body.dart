@@ -7,15 +7,16 @@ class BidBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return  Stack(
       children: [
          Column(
           children: [
-            Expanded(child: ImagesSection()),
-           Expanded(child: SecondBidSection()),
+            SizedBoxApp(h: 35.h(context),),
+            const Expanded(child: ImagesSection()),
+           const Expanded(child: SecondBidSection()),
           ],
         ),
-        BidDetailsAppBar(),
+        const BidDetailsAppBar(),
       ],
     );
   }

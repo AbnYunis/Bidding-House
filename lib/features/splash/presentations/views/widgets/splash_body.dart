@@ -1,5 +1,4 @@
 import 'package:bidding_house/core/utils/imports.dart';
-import 'package:bidding_house/core/utils/styles/text_style.dart';
 
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});

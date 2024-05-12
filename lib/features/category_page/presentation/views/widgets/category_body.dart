@@ -7,8 +7,6 @@ class CategoryBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final h = SizeApp(context).height;
-    final w = SizeApp(context).width;
 
     return Column(
       children: [

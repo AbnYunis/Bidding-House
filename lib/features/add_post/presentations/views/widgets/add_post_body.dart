@@ -1,8 +1,5 @@
-import 'package:bidding_house/core/utils/function/location_fun.dart';
+
 import 'package:bidding_house/core/utils/imports.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AddPostBody extends StatelessWidget {
   const AddPostBody({super.key, required this.file});

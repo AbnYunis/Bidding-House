@@ -7,7 +7,7 @@ class BidDetailsAppBar extends StatelessWidget {
     return  Row(
       children: [
         IconButton(
-          icon: const Icon(Icons.arrow_circle_left_outlined,color: Colors.blue,),
+          icon: const Icon(Icons.arrow_circle_left_outlined,color: Colors.black,),
           onPressed: () {
             GoRouter.of(context).pop();
           },
@@ -17,7 +17,7 @@ class BidDetailsAppBar extends StatelessWidget {
         ),
         Text(
           "Details",
-          style: AppTextStyles.style20_800(context, CustomColor.blue),
+          style: AppTextStyles.style20_800(context, CustomColor.yellow),
         ),
       ],
     );
