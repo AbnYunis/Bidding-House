@@ -50,7 +50,9 @@ class AuthBody extends StatelessWidget {
                     }
                   },
                   onPressedSignUp: () {
-                    if (formKey.currentState!.validate()) {}
+                    if (formKey.currentState!.validate()) {
+                      context.go(Routers.bnb);
+                    }
                   },
                 ),
                 SizedBoxApp(h: 81.h(context)),

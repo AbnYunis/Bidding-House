@@ -1,5 +1,4 @@
 import 'package:bidding_house/core/utils/imports.dart';
-import 'package:flutter/cupertino.dart';
 
 class ImagesSection extends StatefulWidget {
   const ImagesSection({super.key});
@@ -35,8 +34,8 @@ class _ImagesSectionState extends State<ImagesSection> {
     return Stack(
       children: [
         Container(
+          height: 350.h(context),
           color: Colors.white,
-          height: 400.h(context),
           child: PageView(
             controller: _pageController,
             children: [

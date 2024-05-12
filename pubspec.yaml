@@ -44,6 +44,9 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^4.2.8
   iconify_flutter: ^0.0.5
   flutter_credit_card: ^4.0.1
+  permission_handler: ^11.3.1
+  geolocator: ^11.0.0
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_test:

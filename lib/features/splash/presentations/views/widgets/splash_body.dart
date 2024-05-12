@@ -36,11 +36,9 @@ class _SplashBodyState extends State<SplashBody> {
             Image.asset(
               AssetService.splash2,
               height: 184.h(context),
-              width: 190.w(context),
             ),
             Container(
               height: 184.h(context),
-              width: 190.w(context),
               decoration: const BoxDecoration(color: Colors.black12),
               child: Center(
                   child: Text(

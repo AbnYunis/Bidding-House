@@ -13,11 +13,9 @@ class Logo extends StatelessWidget {
         Image.asset(
           AssetService.splash2,
           height: 130.h(context),
-          width: 134.w(context),
         ),
         Container(
           height: 130.h(context),
-          width: 134.w(context),
           decoration: const BoxDecoration(color: Colors.black12),
           child: Center(
               child: Text(

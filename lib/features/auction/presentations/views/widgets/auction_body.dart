@@ -1,4 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/features/bid/presentation/views/bid_view.dart';
 
 class AuctionBody extends StatelessWidget {
   const AuctionBody({super.key});
@@ -9,7 +10,7 @@ class AuctionBody extends StatelessWidget {
       padding:  EdgeInsets.symmetric(horizontal: 26.w(context)),
       child: Column(
         children: [
-          const AddPostAppBar(),
+          const AuctionAppBar(),
           SizedBoxApp(
             h: 57.h(context),
           ),
@@ -56,7 +57,9 @@ class AuctionBody extends StatelessWidget {
                         MaterialButton(
                           height: 25.h(context),
                           minWidth: 50.w(context),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BidView()));
+                          },
                           color: Colors.green,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7)),

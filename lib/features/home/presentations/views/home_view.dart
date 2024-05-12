@@ -18,11 +18,9 @@ class HomeView extends StatelessWidget {
                   Image.asset(
                     AssetService.splash2,
                     height: 120.h(context),
-                    width: 124.w(context),
                   ),
                   Container(
                     height: 120.h(context),
-                    width: 124.w(context),
                     decoration: const BoxDecoration(color: Colors.black12),
                     child: Center(
                         child: Text(
