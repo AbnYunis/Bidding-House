@@ -14,7 +14,7 @@ class MyImage extends StatelessWidget {
         imageUrl: imageUrl,
         placeholder: (context, url) => Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
-          highlightColor: Colors.black54,
+          highlightColor: Colors.grey[100]!,
           child: Container(
             width: 140.w(context),
             height: 140.h(context),

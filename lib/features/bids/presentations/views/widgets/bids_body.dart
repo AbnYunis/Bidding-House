@@ -5,21 +5,17 @@ class BidsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 26.w(context)),
+    return  Padding(
+      padding:  EdgeInsets.symmetric(horizontal: 26.w(context)),
       child: Column(
         children: [
-          Text(
-            "My Bids",
-            style: AppTextStyles.style20_800(context, CustomColor.white),
-          ),
+          const BidsAppBar(),
           SizedBoxApp(
             h: 57.h(context),
           ),
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (context, index) =>
-                  SizedBoxApp(h: 20.h(context)),
+              separatorBuilder: (context, index) => SizedBoxApp(h: 20.h(context)),
               itemCount: 8,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {},
@@ -30,42 +26,45 @@ class BidsBody extends StatelessWidget {
                     ),
                     SizedBoxApp(w: 20.w(context)),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Arabian horse",
-                          style: AppTextStyles.style12_800(
-                              context, CustomColor.white),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Arabian horse",
+                              style: AppTextStyles.style12_800(
+                                  context, CustomColor.white),
+                            ),
+                            SizedBoxApp(h: 10.h(context)),
+                            Text(
+                              "current Bid \$2500",
+                              style: AppTextStyles.style7_700(
+                                  context, CustomColor.grey),
+                            ),
+                            SizedBoxApp(h: 10.h(context)),
+                            Text(
+                              "Sold For \$40m",
+                              style: AppTextStyles.style12_800(
+                                  context, CustomColor.white),
+                            ),
+                            SizedBoxApp(w: 10.h(context)),
+                            MaterialButton(
+                              height: 25.h(context),
+                              minWidth: 50.w(context),
+                              onPressed: () {},
+                              color: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(7)),
+                              child: const Text(
+                                'You have won',
+                                style: TextStyle(fontSize: 9, color: Colors.white),
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBoxApp(h: 10.h(context)),
-                        Text(
-                          "current Bid \$2500",
-                          style: AppTextStyles.style7_700(
-                              context, CustomColor.grey),
-                        ),
-                        SizedBoxApp(h: 10.h(context)),
-                        Text(
-                          "Sold For \$40m",
-                          style: AppTextStyles.style12_800(
-                              context, CustomColor.white),
-                        ),
-                        SizedBoxApp(w: 10.h(context)),
-                        MaterialButton(
-                          height: 25.h(context),
-                          minWidth: 50.w(context),
-                          onPressed: () {},
-                          color: Colors.green,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7)),
-                          child: const Text(
-                            'You have won',
-                            style: TextStyle(fontSize: 9, color: Colors.white),
-                          ),
-                        )
-                      ],
-                    ),
                   ],
                 ),
+
+
+
               ),
             ),
           ),

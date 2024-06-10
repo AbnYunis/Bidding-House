@@ -98,9 +98,7 @@ class SecondBidSection extends StatelessWidget {
                 child: MaterialButton(
                   height: 50.h(context),
                   minWidth: 270.w(context),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentView()));
-                  },
+                  onPressed: () {},
                   color: Colors.green,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7)),

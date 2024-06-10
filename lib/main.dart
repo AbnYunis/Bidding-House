@@ -1,8 +1,19 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: 'AIzaSyB4BmQOTSX81udqSTedPbXafNNdb3c8n9c',
+        appId: '1:1026875238675:android:eb9b516d9bff8ad1ac92e6',
+        messagingSenderId: '1026875238675',
+        projectId: 'bidding-house-35011',
+        storageBucket: 'gs://bidding-house-35011.appspot.com',
+      )
+  );
+
   runApp(
     //   DevicePreview(
     //   enabled: true,

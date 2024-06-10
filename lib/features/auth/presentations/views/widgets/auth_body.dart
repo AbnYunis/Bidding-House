@@ -1,4 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthBody extends StatelessWidget {
   const AuthBody({super.key});
@@ -49,9 +50,24 @@ class AuthBody extends StatelessWidget {
                       context.go(Routers.bnb);
                     }
                   },
-                  onPressedSignUp: () {
-                    if (formKey.currentState!.validate()) {
-                      context.go(Routers.bnb);
+                  onPressedSignUp: () async{
+                    try {
+                      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passController.text,
+                      );
+                      print('credential $credential');
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'weak-password') {
+                        print('The password provided is too weak.');
+                      } else if (e.code == 'email-already-in-use') {
+                        print('The account already exists for that email.');
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
+                    if (formKey.currentState!.validate())  {
+
                     }
                   },
                 ),

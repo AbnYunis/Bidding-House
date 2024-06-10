@@ -40,8 +40,10 @@ class _ImagesSectionState extends State<ImagesSection> {
             controller: _pageController,
             children: [
               Image.network(
+
                 'https://cdn.shortpixel.ai/spai/q_glossy+ret_img+to_webp/mobizil.com/wp-content/uploads/2024/03/Samsung-Galaxy-A55-2.jpg',
                 fit: BoxFit.contain,
+
               ),
               Image.network(
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv5CcE53Y476FI4TfrfGS6WRs9dEIu2N5qvQ&s',

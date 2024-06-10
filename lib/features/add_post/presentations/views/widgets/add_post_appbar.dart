@@ -16,7 +16,7 @@ class AddPostAppBar extends StatelessWidget {
           w: 90.w(context),
         ),
         Text(
-          "Add Post",
+          "Auction",
           style: AppTextStyles.style20_800(context, CustomColor.white),
         ),
       ],

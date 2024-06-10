@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "295598690644",
-    "project_id": "bidding-house-4b914",
-    "storage_bucket": "bidding-house-4b914.appspot.com"
+    "project_number": "1026875238675",
+    "project_id": "bidding-house-35011",
+    "storage_bucket": "bidding-house-35011.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:295598690644:android:615da27ff82ed6d19cf8c1",
+        "mobilesdk_app_id": "1:1026875238675:android:eb9b516d9bff8ad1ac92e6",
         "android_client_info": {
           "package_name": "com.example.bidding_house"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDzBLaNVoxwZwxTwd_WRmnFtZ2gW895ayw"
+          "current_key": "AIzaSyB4BmQOTSX81udqSTedPbXafNNdb3c8n9c"
         }
       ],
       "services": {

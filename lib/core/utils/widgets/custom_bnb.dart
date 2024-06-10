@@ -1,5 +1,5 @@
 
-
+import 'package:bidding_house/core/utils/function/load_image.dart';
 import 'package:bidding_house/core/utils/imports.dart';
 
 class CustomBNB extends StatefulWidget {
@@ -19,22 +19,22 @@ class _CustomBNBState extends State<CustomBNB> {
       const HomeView(),
       const AuctionView(),
       const BidsView(),
-      const EditProfileView(),
+      const PaymentView(),
     ];
     List<String> icons = [
-      (MaterialSymbols.home_outline_rounded),
-      (Carbon.search),
       (Carbon.filter),
-      (MaterialSymbols.account_circle),
+      (Carbon.filter),
+      (Carbon.filter),
+      (Carbon.filter),
     ];
-    List<String> label = ['Home', 'Search', 'My Bids', 'Profile'];
+    List<String> label = ['Home', 'Book', 'Offers', 'More'];
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         extendBody: true,
         body: screens[currentIndex],
         bottomNavigationBar: Container(
-          color: const Color(0xFF2E2E2F),
+          color: Color(0xFF2E2E2F),
           width: double.infinity,
           height: 64.h(context),
           child: Row(
