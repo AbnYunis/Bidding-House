@@ -1,5 +1,8 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/core/utils/widgets/custom_snackbar.dart';
+import 'package:bidding_house/features/auth/presentations/controller/auth_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthBody extends StatelessWidget {
   const AuthBody({super.key});
@@ -9,75 +12,118 @@ class AuthBody extends StatelessWidget {
     var formKey = GlobalKey<FormState>();
     TextEditingController emailController = TextEditingController();
     TextEditingController passController = TextEditingController();
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25.w(context)),
-        child: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                TextFormWithName(
-                  controller:emailController ,
-                  text: "jimny@bonder.com",
-                  textName: "Email",
-                  validator: (p0) {
-                    if (p0!.isEmpty) {
-                      return "Enter email";
-                    }
-                    return null;
-                  },
+    TextEditingController nameController = TextEditingController();
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthFailure) {
+          return snackBar(state.message, context, Colors.red);
+        }
+        if (state is AuthSuccess) {
+          return snackBar(state.message, context, Colors.white);
+        }
+      },
+      builder: (context, state) {
+        bool login = BlocProvider.of<AuthCubit>(context).login;
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.w(context)),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    TextFormWithName(
+                      controller: emailController,
+                      text: "jimny@bonder.com",
+                      textName: "Email",
+                      validator: (p0) {
+                        if (p0!.isEmpty) {
+                          return "Enter email";
+                        }
+                        if (!(p0.contains('@') || p0.contains('.com'))) {
+                          return 'Please enter a valid email !';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBoxApp(h: 33.h(context)),
+                    TextFormWithName(
+                      controller: passController,
+                      text: "**************",
+                      textName: "Password",
+                      validator: (p0) {
+                        if (p0!.isEmpty) {
+                          return "Enter password";
+                        }
+                        if (p0.length < 6) {
+                          return 'Please enter at least 6 digits';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBoxApp(h: 33.h(context)),
+                    if (login == false)
+                      TextFormWithName(
+                        controller: nameController,
+                        text: "Name",
+                        textName: "User Name",
+                        validator: (p0) {
+                          if (p0!.isEmpty) {
+                            return "Enter Name";
+                          }
+                          return null;
+                        },
+                      ),
+                    SizedBoxApp(h: 11.h(context)),
+                    const ForgetPass(),
+                    SizedBoxApp(h: 33.h(context)),
+                    state is AuthLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Column(
+                            children: [
+                              AuthButton(
+                                onPressed: () async {
+                                  if (formKey.currentState!.validate()) {
+                                    if (login != true) {
+                                      BlocProvider.of<AuthCubit>(context)
+                                          .SignUp(
+                                              emailController.text,
+                                              passController.text,
+                                              nameController.text);
+                                    } else {
+                                      BlocProvider.of<AuthCubit>(context).logIn(
+                                        emailController.text,
+                                        passController.text,
+                                      );
+                                    }
+                                  }
+                                },
+                                text: login ? 'Log in' : 'Sign up',
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  BlocProvider.of<AuthCubit>(context)
+                                      .changeLogin();
+                                },
+                                child: Text(
+                                  '${login ? 'SignUp' : 'Login'} instead',
+                                  style: AppTextStyles.style14_400(
+                                      context, CustomColor.blue),
+                                ),
+                              ),
+                            ],
+                          ),
+                    SizedBoxApp(h: 81.h(context)),
+                    const Logo(),
+                  ],
                 ),
-                SizedBoxApp(h: 33.h(context)),
-                TextFormWithName(
-                  controller:passController ,
-                  text: "**************",
-                  textName: "Password",
-                  validator: (p0) {
-                    if (p0!.isEmpty) {
-                      return "Enter password";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBoxApp(h: 11.h(context)),
-                const ForgetPass(),
-                SizedBoxApp(h: 33.h(context)),
-                AuthButton(
-                  onPressedLogin: () {
-
-                    if (formKey.currentState!.validate()) {
-                      context.go(Routers.bnb);
-                    }
-                  },
-                  onPressedSignUp: () async{
-                    try {
-                      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passController.text,
-                      );
-                      print('credential $credential');
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'weak-password') {
-                        print('The password provided is too weak.');
-                      } else if (e.code == 'email-already-in-use') {
-                        print('The account already exists for that email.');
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
-                    if (formKey.currentState!.validate())  {
-
-                    }
-                  },
-                ),
-                SizedBoxApp(h: 81.h(context)),
-                const Logo(),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
