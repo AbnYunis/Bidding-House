@@ -23,8 +23,8 @@ class MyImage extends StatelessWidget {
         ),
         errorWidget: (context, url, error) => const Icon(Icons.error),
         fit: BoxFit.cover,
-        width: 140.w(context),
-        height: 140.h(context),
+        width: 125.w(context),
+        height: 125.h(context),
       ),
     );
   }

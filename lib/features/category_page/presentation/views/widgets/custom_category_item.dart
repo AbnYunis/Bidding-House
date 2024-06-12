@@ -62,7 +62,7 @@ class CustomCategoryItem extends StatelessWidget {
                     ),
                     MaterialButton(
                       height: 25.h(context),
-                      minWidth: 50.w(context),
+                      minWidth: 30.w(context),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const BidView()));

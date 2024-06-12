@@ -27,10 +27,7 @@ export 'package:bidding_house/features/home/presentations/views/home_view.dart';
 export 'package:cached_network_image/cached_network_image.dart';
 export 'package:shimmer/shimmer.dart';
 export 'package:bidding_house/core/utils/widgets/custom_bnb.dart';
-export 'package:bidding_house/features/category-page/presentation/views/widgets/category-body.dart';
-export 'package:bidding_house/features/category-page/presentation/views/widgets/category_appbar.dart';
 export 'package:bidding_house/features/bid/presentation/views/widgets/bid_body.dart';
-export 'package:bidding_house/features/category-page/presentation/views/widgets/custom_category_item.dart';
 export 'package:iconify_flutter/iconify_flutter.dart';
 export 'package:iconify_flutter/icons/carbon.dart';
 export 'package:bidding_house/features/auction/presentations/views/widgets/auction_appbar.dart';
@@ -50,3 +47,7 @@ export  'package:bidding_house/features/bid/presentation/views/widgets/image_sec
 export  'package:bidding_house/features/bid/presentation/views/widgets/second_bid_section.dart';
 export 'package:bidding_house/features/bid/presentation/views/bid_view.dart';
 export 'package:bidding_house/features/edit_profile/presentation/views/widgets/edit_profile_body.dart';
+export 'package:bidding_house/features/category_page/presentation/views/category_view.dart';
+export 'package:bidding_house/features/category_page/presentation/views/widgets/category_appbar.dart';
+export 'package:bidding_house/features/category_page/presentation/views/widgets/custom_category_item.dart';
+export 'package:bidding_house/features/category_page/presentation/views/widgets/category_body.dart';
