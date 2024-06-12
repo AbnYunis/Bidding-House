@@ -1,6 +1,7 @@
 
 import 'package:bidding_house/core/utils/function/load_image.dart';
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:iconify_flutter/icons/material_symbols.dart';
 
 class CustomBNB extends StatefulWidget {
   const CustomBNB({super.key});
@@ -22,10 +23,10 @@ class _CustomBNBState extends State<CustomBNB> {
       const PaymentView(),
     ];
     List<String> icons = [
+      (MaterialSymbols.home_outline_rounded),
+      (Carbon.search),
       (Carbon.filter),
-      (Carbon.filter),
-      (Carbon.filter),
-      (Carbon.filter),
+      (MaterialSymbols.account_circle),
     ];
     List<String> label = ['Home', 'Book', 'Offers', 'More'];
     return SafeArea(

@@ -1,6 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 class SplashBody extends StatefulWidget {
   const SplashBody({super.key});
@@ -60,9 +59,9 @@ class _SplashBodyState extends State<SplashBody> {
       () {
         FirebaseAuth.instance.authStateChanges().listen((User? user) {
           if (user == null) {
-            ctx.pushReplacement(Routers.auth);
+            ctx.go(Routers.auth);
           } else {
-            ctx.pushReplacement(Routers.bnb);
+            ctx.go(Routers.bnb);
           }
         });
       },

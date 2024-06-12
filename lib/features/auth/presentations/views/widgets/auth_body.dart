@@ -1,7 +1,6 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/core/utils/widgets/custom_snackbar.dart';
 import 'package:bidding_house/features/auth/presentations/controller/auth_cubit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthBody extends StatelessWidget {
@@ -19,6 +18,7 @@ class AuthBody extends StatelessWidget {
           return snackBar(state.message, context, Colors.red);
         }
         if (state is AuthSuccess) {
+          context.pushReplacement(Routers.bnb);
           return snackBar(state.message, context, Colors.white);
         }
       },
@@ -79,7 +79,9 @@ class AuthBody extends StatelessWidget {
                     SizedBoxApp(h: 33.h(context)),
                     state is AuthLoading
                         ? const Center(
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
                           )
                         : Column(
                             children: [
