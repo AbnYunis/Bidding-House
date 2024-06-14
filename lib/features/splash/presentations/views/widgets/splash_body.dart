@@ -56,12 +56,14 @@ class _SplashBodyState extends State<SplashBody> {
   void navigateToHome(final BuildContext ctx) {
     Future.delayed(
       const Duration(milliseconds: 2500),
-      () {
+          () {
+        if (!mounted) return;
         FirebaseAuth.instance.authStateChanges().listen((User? user) {
+          if (!mounted) return;
           if (user == null) {
-            ctx.go(Routers.auth);
+            GoRouter.of(context).go(Routers.auth);
           } else {
-            ctx.go(Routers.bnb);
+            GoRouter.of(context).go(Routers.bnb);
           }
         });
       },

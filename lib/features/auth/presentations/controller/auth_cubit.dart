@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
-
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -14,7 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthInitial());
   }
 
-  Future<void> SignUp(
+  Future<void> signUp(
       final String email, final String password, final String userName) async {
     try {
       emit(AuthLoading());

@@ -90,7 +90,7 @@ class AuthBody extends StatelessWidget {
                                   if (formKey.currentState!.validate()) {
                                     if (login != true) {
                                       BlocProvider.of<AuthCubit>(context)
-                                          .SignUp(
+                                          .signUp(
                                               emailController.text,
                                               passController.text,
                                               nameController.text);

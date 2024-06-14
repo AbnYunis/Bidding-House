@@ -18,3 +18,17 @@ final class SignOutFailure extends SignOutState {
 
   SignOutFailure(this.message);
 }
+
+final class HomeDataLoading extends SignOutState {}
+
+final class HomeDataSuccess extends SignOutState {
+  final QuerySnapshot<Object?> message;
+
+  HomeDataSuccess(this.message);
+}
+
+final class HomeDataFailure extends SignOutState {
+  final String message;
+
+  HomeDataFailure(this.message);
+}

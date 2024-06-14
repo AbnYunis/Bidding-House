@@ -15,7 +15,7 @@ class _CustomBNBState extends State<CustomBNB> {
 
   @override
   Widget build(BuildContext context) {
-    File? image ;
+    List<File?> image ;
     List<Widget> screens = [
       const HomeView(),
       const AuctionView(),
@@ -71,7 +71,7 @@ class _CustomBNBState extends State<CustomBNB> {
         ),
         floatingActionButton: GestureDetector(
           onTap: () {
-            chooseImage(context, image).then((value) {
+            chooseImages(context).then((value) {
               context.push(Routers.addPost,extra:value );
             });
           },

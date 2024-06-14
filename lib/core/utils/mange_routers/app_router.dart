@@ -10,11 +10,11 @@ abstract class AppRouter {
       Routers.goRouteFade(const PaymentView(), Routers.payment),
       GoRoute(
         path: Routers.addPost,
-        builder: (context, state) => AddPostView(image: state.extra as File,),
+        builder: (context, state) => AddPostView(image: state.extra as List<File>,),
         pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
           context: context,
           state: state,
-          child: AddPostView(image: state.extra as File,),
+          child: AddPostView(image: state.extra as List<File>,),
         ),
       )
     ],
