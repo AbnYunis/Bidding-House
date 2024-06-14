@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:meta/meta.dart';
 
@@ -17,7 +18,7 @@ class AddPostCubit extends Cubit<AddPostState> {
       final String classification,
       final String location,
       final String price,
-      final DateTime date) async {
+      final String date) async {
     firebase_storage.Reference ref;
     emit(AddPostLoading());
 
@@ -34,22 +35,38 @@ class AddPostCubit extends Cubit<AddPostState> {
         });
       }
 
-      await FirebaseFirestore.instance.collection('users').doc('').set({
-        'images': postImages,
-        'caption': caption,
-        'classification': classification,
-        'location': location,
-        'price': price,
-        'date': date,
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+          .update({
+        "posts": FieldValue.arrayUnion([
+          {
+            'images': postImages,
+            'desc': caption,
+            'classification': classification,
+            'location': location,
+            'price': price,
+            'date': date,
+          }
+        ]),
       });
 
-      await FirebaseFirestore.instance.collection('users').doc('').set({
-        'images': postImages,
-        'caption': caption,
-        'classification': classification,
-        'location': location,
-        'price': price,
-        'date': date,
+      await FirebaseFirestore.instance
+          .collection('classification')
+          .doc(classification)
+          .collection("${classification}Posts")
+          .doc("${classification}Posts")
+          .update({
+        "posts": FieldValue.arrayUnion([
+          {
+            'images': postImages,
+            'desc': caption,
+            'classification': classification,
+            'location': location,
+            'price': price,
+            'date': date,
+          }
+        ]),
       });
 
       emit(AddPostSuccess('Post added successfully.'));

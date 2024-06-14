@@ -2,8 +2,9 @@ import '../../../../../core/utils/imports.dart';
 
 class DateWidget extends StatefulWidget {
   const DateWidget({
-    super.key,
+    super.key, required this.date,
   });
+  final void Function(String?) date;
   @override
   State<DateWidget> createState() => _DateState();
 }
@@ -27,7 +28,8 @@ class _DateState extends State<DateWidget> {
             initialDate: DateTime.now())
             .then((value) {
           setState(() {
-            text = "${value!.day}/${value.month}/${value.year}";
+            widget.date(value!.toIso8601String());
+            text = "${value.day}/${value.month}/${value.year}";
           });
         });
       },

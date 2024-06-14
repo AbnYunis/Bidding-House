@@ -1,9 +1,9 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
       options: const FirebaseOptions(
         apiKey: 'AIzaSyB4BmQOTSX81udqSTedPbXafNNdb3c8n9c',
@@ -15,12 +15,12 @@ void main() async {
   );
 
   runApp(
-    //   DevicePreview(
-    //   enabled: true,
-    //   builder: (context) => const MyApp(), // Wrap your app
-    // ),
+      DevicePreview(
+      enabled: true,
+      builder: (context) => const MyApp(), // Wrap your app
+    ),
 
-    const MyApp(),
+   // const MyApp(),
   );
 }
 

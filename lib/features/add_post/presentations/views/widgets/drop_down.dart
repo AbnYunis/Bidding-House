@@ -10,8 +10,8 @@ List<String> itemsName = [
 ];
 
 class MyDropDown extends StatefulWidget {
-  const MyDropDown({super.key});
-
+  const MyDropDown({super.key, required this.classification});
+  final void Function(String?) classification;
   @override
   MyDropDownState createState() => MyDropDownState();
 }
@@ -27,6 +27,7 @@ class MyDropDownState extends State<MyDropDown> {
       onChanged: (String? newValue) {
         setState(() {
           selectedItem = newValue;
+          widget.classification(selectedItem);
         });
       },
       items: itemsName.map<DropdownMenuItem<String>>((String value) {

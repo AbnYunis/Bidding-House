@@ -12,7 +12,9 @@ class AddPostBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController locationController = TextEditingController();
+    TextEditingController typeController = TextEditingController();
     TextEditingController captionController = TextEditingController();
+    TextEditingController dateController = TextEditingController();
     TextEditingController priceController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 26.w(context)),
@@ -54,7 +56,9 @@ class AddPostBody extends StatelessWidget {
                   SizedBoxApp(
                     h: 20.h(context),
                   ),
-                  const MyDropDown(),
+                   MyDropDown(classification: (p0) {
+                    typeController.text = p0!;
+                  },),
                   SizedBoxApp(
                     h: 20.h(context),
                   ),
@@ -126,7 +130,11 @@ class AddPostBody extends StatelessWidget {
                             context, CustomColor.white),
                       ),
                       const Spacer(),
-                      const DateWidget()
+                       DateWidget(
+                         date: (p0) {
+                           dateController.text = p0!;
+                         },
+                       )
                     ],
                   ),
                   SizedBoxApp(
@@ -148,10 +156,10 @@ class AddPostBody extends StatelessWidget {
                               BlocProvider.of<AddPostCubit>(context).addPost(
                                   file,
                                   captionController.text,
-                                  'Cars',
+                                  typeController.text,
                                   locationController.text,
                                   priceController.text,
-                                  DateTime.now());
+                                  dateController.text);
                             },
                             color: Colors.blueAccent,
                             minWidth: 153.w(context),
