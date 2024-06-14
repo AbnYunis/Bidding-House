@@ -5,8 +5,8 @@ List<String> itemsName = [
   'Hours',
   'Cars',
   'Mobiles',
-  'Clothes & Shoes',
-  'Paint Art',
+  'Clothes&shoes',
+  'Collectibles',
 ];
 
 class MyDropDown extends StatefulWidget {

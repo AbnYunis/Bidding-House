@@ -11,7 +11,9 @@ class AddPostBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
+    TextEditingController locationController = TextEditingController();
+    TextEditingController captionController = TextEditingController();
+    TextEditingController priceController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 26.w(context)),
       child: Column(
@@ -40,6 +42,7 @@ class AddPostBody extends StatelessWidget {
                     h: 20.h(context),
                   ),
                   TextFormField(
+                    controller: captionController,
                     style:
                         AppTextStyles.style16_800(context, CustomColor.white),
                     decoration: InputDecoration(
@@ -56,9 +59,9 @@ class AddPostBody extends StatelessWidget {
                     h: 20.h(context),
                   ),
                   TextFormField(
-                    controller: controller,
+                    controller: locationController,
                     onTap: () async {
-                      controller.text =
+                      locationController.text =
                           await requestLocationPermissionAndRetrieveLocation();
                     },
                     readOnly: true,
@@ -85,6 +88,7 @@ class AddPostBody extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextFormField(
+                          controller: priceController,
                           style: AppTextStyles.style16_800(
                               context, CustomColor.white),
                           decoration: InputDecoration(
@@ -134,13 +138,20 @@ class AddPostBody extends StatelessWidget {
                     },
                     builder: (context, state) {
                       if (state is AddPostLoading) {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator(
+                          color: Colors.white,
+                        );
                       } else {
                         return Center(
                           child: MaterialButton(
                             onPressed: () {
-                              BlocProvider.of<AddPostCubit>(context)
-                                  .addPost(file, 'no cap', '', '', '', '');
+                              BlocProvider.of<AddPostCubit>(context).addPost(
+                                  file,
+                                  captionController.text,
+                                  'Cars',
+                                  locationController.text,
+                                  priceController.text,
+                                  DateTime.now());
                             },
                             color: Colors.blueAccent,
                             minWidth: 153.w(context),

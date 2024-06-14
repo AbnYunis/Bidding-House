@@ -9,7 +9,7 @@ class AuctionBody extends StatelessWidget {
       padding:  EdgeInsets.symmetric(horizontal: 26.w(context)),
       child: Column(
         children: [
-          const AddPostAppBar(),
+          const AuctionAppBar(),
           SizedBoxApp(
             h: 57.h(context),
           ),

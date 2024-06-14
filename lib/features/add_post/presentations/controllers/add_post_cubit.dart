@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:meta/meta.dart';
 
@@ -10,26 +12,50 @@ class AddPostCubit extends Cubit<AddPostState> {
   List<String> postImages = [];
 
   Future<void> addPost(
-      final List images,
+      final List<File> images,
       final String caption,
       final String classification,
       final String location,
       final String price,
-      final String date) async {
+      final DateTime date) async {
     firebase_storage.Reference ref;
     emit(AddPostLoading());
-    for (var i in images) {
-      ref = firebase_storage.FirebaseStorage.instance
-          .ref()
-          .child('postImages/hello}');
-      await ref.putFile(i).whenComplete(() async {
-        print('done');
-        await ref.getDownloadURL().then((val) {
-          postImages.add(val);
+
+    try {
+      for (var i = 0; i < images.length; i++) {
+        ref = firebase_storage.FirebaseStorage.instance
+            .ref()
+            .child('postImages/${DateTime.now().millisecondsSinceEpoch}_$i');
+
+        await ref.putFile(images[i]).whenComplete(() async {
+          print('Upload done for image $i');
+          String downloadURL = await ref.getDownloadURL();
+          postImages.add(downloadURL);
         });
+      }
+
+      await FirebaseFirestore.instance.collection('users').doc('').set({
+        'images': postImages,
+        'caption': caption,
+        'classification': classification,
+        'location': location,
+        'price': price,
+        'date': date,
       });
+
+      await FirebaseFirestore.instance.collection('users').doc('').set({
+        'images': postImages,
+        'caption': caption,
+        'classification': classification,
+        'location': location,
+        'price': price,
+        'date': date,
+      });
+
+      emit(AddPostSuccess('Post added successfully.'));
+    } catch (e) {
+      print('Error: $e');
+      emit(AddPostFailure(e.toString()));
     }
-    print(postImages);
-    emit(AddPostSuccess());
   }
 }
