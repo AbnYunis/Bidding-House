@@ -1,7 +1,16 @@
 import 'package:bidding_house/core/utils/imports.dart';
 
-class CustomCategoryItem extends StatelessWidget {
-  const CustomCategoryItem({super.key});
+class CustomCategoryItem extends StatefulWidget {
+  const CustomCategoryItem({super.key, required this.data});
+
+  final Map data;
+
+  @override
+  CustomCategoryItemState createState() => CustomCategoryItemState();
+}
+
+class CustomCategoryItemState extends State<CustomCategoryItem> {
+  late Duration isSold = const Duration();
 
   @override
   Widget build(BuildContext context) {
@@ -10,75 +19,82 @@ class CustomCategoryItem extends StatelessWidget {
           horizontal: 10.w(context), vertical: 10.h(context)),
       child: Row(
         children: [
-          const MyImage(
-            imageUrl:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5McanARG73EB7PNmo1fjRKFeX75BlB6ZlXu84xHzxMA&s',
+          MyImage(
+            imageUrl: widget.data["images"][0],
           ),
           SizedBoxApp(
             w: 10.w(context),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Rolex',
-                style: AppTextStyles.style14_800(context, CustomColor.white),
-              ),
-              SizedBox(
-                width: 200.w(context),
-                child: Text(
-                  maxLines: 3,
-                  'A luxurious diving watch made of stainless steel',
-                  style: AppTextStyles.style10_800(context),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.data["desc"]
+                      .toString()
+                      .substring(0, 5),
+                  style: AppTextStyles.style14_800(context, CustomColor.white),
                 ),
-              ),
-              Text(
-                ' The price  \$8,000',
-                style: AppTextStyles.style10_800Price(context),
-              ),
-              Text(
-                '18 Oct 2023',
-                style: AppTextStyles.style12_800(context, CustomColor.white),
-              ),
-              SizedBox(
-                height: 30.h(context),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.watch_later_rounded,
-                      color: Colors.white,
-                    ),
-                    SizedBoxApp(
-                      w: 5.w(context),
-                    ),
-                    Text(
-                      '5 Days 21:45:02',
-                      style:
-                          AppTextStyles.style12_800(context, CustomColor.white),
-                    ),
-                    SizedBoxApp(
-                      w: 10.w(context),
-                    ),
-                    MaterialButton(
-                      height: 25.h(context),
-                      minWidth: 30.w(context),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const BidView()));
-                      },
-                      color: Colors.green,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7)),
-                      child: const Text(
-                        'Bid Now',
-                        style: TextStyle(fontSize: 9, color: Colors.white),
+                SizedBox(
+                  width: 200.w(context),
+                  child: Text(
+                    widget.data["desc"],
+                    maxLines: 3,
+                    style: AppTextStyles.style10_800(context),
+                  ),
+                ),
+                Text(
+                  ' The price  \$${widget.data["price"]}',
+                  style: AppTextStyles.style10_800Price(context),
+                ),
+                Text(
+                  widget.data["location"],
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.style12_800(context, CustomColor.white),
+                ),
+                SizedBox(
+                  height: 30.h(context),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.watch_later_rounded,
+                        color: Colors.white,
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                      SizedBoxApp(
+                        w: 5.w(context),
+                      ),
+                      CountdownTimer(
+                        deadlineString: widget.data["date"],
+                        onTimerEnd: (p0) {
+                          setState(() {
+                            isSold = p0 ?? const Duration(days: 0);
+                          });
+                        },
+                      ),
+                      const Spacer(),
+                      MaterialButton(
+                        height: 25.h(context),
+                        minWidth: 30.w(context),
+                        onPressed: isSold.isNegative ? (){} : () {
+                          print(isSold);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const BidView()));
+                        },
+                        color: Colors.green,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7)),
+                        child:  Text(
+                          isSold.isNegative?"Sold":'Bid Now',
+                          style: const TextStyle(fontSize: 9, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       ),

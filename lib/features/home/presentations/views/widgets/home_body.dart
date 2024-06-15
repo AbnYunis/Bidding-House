@@ -36,7 +36,7 @@ class HomeBody extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      CategoryView(title: itemsName[index]),
+                                      CategoryView(title:state.message.docs[index].get('name')),
                                 ));
                           },
                           child: CustomHomeItem(
