@@ -1,7 +1,9 @@
 import 'package:bidding_house/core/utils/imports.dart';
 
 class ImagesSection extends StatefulWidget {
-  const ImagesSection({super.key});
+  const ImagesSection({super.key, required this.images});
+
+  final List images;
 
   @override
   State<ImagesSection> createState() => _ImagesSectionState();
@@ -34,35 +36,25 @@ class _ImagesSectionState extends State<ImagesSection> {
     return Stack(
       children: [
         Container(
-          height: 350.h(context),
           color: Colors.white,
           child: PageView(
             controller: _pageController,
-            children: [
-              Image.network(
-
-                'https://cdn.shortpixel.ai/spai/q_glossy+ret_img+to_webp/mobizil.com/wp-content/uploads/2024/03/Samsung-Galaxy-A55-2.jpg',
-                fit: BoxFit.contain,
-
-              ),
-              Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv5CcE53Y476FI4TfrfGS6WRs9dEIu2N5qvQ&s',
+            children: List.generate(
+              widget.images.length,
+              (index) => Image.network(
+                widget.images[index],
                 fit: BoxFit.contain,
               ),
-              Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFCiDc4vZwaPRL820q_A_2WK0iQGfMD51kUg&s',
-                fit: BoxFit.contain,
-              ),
-            ],
+            ),
           ),
         ),
         Positioned(
-            bottom: 10.h(context),
+            bottom: 20.h(context),
             left: 150.w(context),
             right: 150.w(context),
             child: Row(
               children: List.generate(
-                  3,
+                  widget.images.length,
                   (index) => Padding(
                         padding: const EdgeInsets.all(3),
                         child: CircleAvatar(

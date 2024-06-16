@@ -1,9 +1,10 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:meta/meta.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 part 'add_post_state.dart';
 
@@ -11,8 +12,10 @@ class AddPostCubit extends Cubit<AddPostState> {
   AddPostCubit() : super(AddPostInitial());
 
   List<String> postImages = [];
+  String postId = const Uuid().v4();
 
   Future<void> addPost(
+      final String title,
       final List<File> images,
       final String caption,
       final String classification,
@@ -29,7 +32,9 @@ class AddPostCubit extends Cubit<AddPostState> {
             .child('postImages/${DateTime.now().millisecondsSinceEpoch}_$i');
 
         await ref.putFile(images[i]).whenComplete(() async {
-          print('Upload done for image $i');
+          if (kDebugMode) {
+            print('Upload done for image $i');
+          }
           String downloadURL = await ref.getDownloadURL();
           postImages.add(downloadURL);
         });
@@ -41,6 +46,8 @@ class AddPostCubit extends Cubit<AddPostState> {
           .update({
         "posts": FieldValue.arrayUnion([
           {
+            'id': postId,
+            'title': title,
             'images': postImages,
             'desc': caption,
             'classification': classification,
@@ -50,7 +57,23 @@ class AddPostCubit extends Cubit<AddPostState> {
           }
         ]),
       });
-
+      await FirebaseFirestore.instance
+          .collection('Search')
+          .doc("AllPosts")
+          .update({
+        "posts": FieldValue.arrayUnion([
+          {
+            'id': postId,
+            'title': title,
+            'images': postImages,
+            'desc': caption,
+            'classification': classification,
+            'location': location,
+            'price': price,
+            'date': date,
+          }
+        ]),
+      });
       await FirebaseFirestore.instance
           .collection('classification')
           .doc(classification)
@@ -59,6 +82,8 @@ class AddPostCubit extends Cubit<AddPostState> {
           .update({
         "posts": FieldValue.arrayUnion([
           {
+            'id': postId,
+            'title': title,
             'images': postImages,
             'desc': caption,
             'classification': classification,
@@ -68,10 +93,19 @@ class AddPostCubit extends Cubit<AddPostState> {
           }
         ]),
       });
-
+      await FirebaseFirestore.instance
+          .collection('Search')
+          .doc('AllPosts')
+          .collection("biddingPeople")
+          .doc(postId)
+          .set({
+        'biddingPeople': [],
+      });
       emit(AddPostSuccess('Post added successfully.'));
     } catch (e) {
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: $e');
+      }
       emit(AddPostFailure(e.toString()));
     }
   }

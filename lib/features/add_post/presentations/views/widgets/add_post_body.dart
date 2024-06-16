@@ -14,6 +14,7 @@ class AddPostBody extends StatelessWidget {
     TextEditingController locationController = TextEditingController();
     TextEditingController typeController = TextEditingController();
     TextEditingController captionController = TextEditingController();
+    TextEditingController titleController = TextEditingController();
     TextEditingController dateController = TextEditingController();
     TextEditingController priceController = TextEditingController();
     return Padding(
@@ -44,6 +45,19 @@ class AddPostBody extends StatelessWidget {
                     h: 20.h(context),
                   ),
                   TextFormField(
+                    controller: titleController,
+                    style:
+                        AppTextStyles.style16_800(context, CustomColor.white),
+                    decoration: InputDecoration(
+                      hintText: "title",
+                      hintStyle:
+                          AppTextStyles.style14_800(context, CustomColor.grey),
+                    ),
+                  ),
+                  SizedBoxApp(
+                    h: 20.h(context),
+                  ),
+                  TextFormField(
                     controller: captionController,
                     style:
                         AppTextStyles.style16_800(context, CustomColor.white),
@@ -56,9 +70,11 @@ class AddPostBody extends StatelessWidget {
                   SizedBoxApp(
                     h: 20.h(context),
                   ),
-                   MyDropDown(classification: (p0) {
-                    typeController.text = p0!;
-                  },),
+                  MyDropDown(
+                    classification: (p0) {
+                      typeController.text = p0!;
+                    },
+                  ),
                   SizedBoxApp(
                     h: 20.h(context),
                   ),
@@ -130,11 +146,11 @@ class AddPostBody extends StatelessWidget {
                             context, CustomColor.white),
                       ),
                       const Spacer(),
-                       DateWidget(
-                         date: (p0) {
-                           dateController.text = p0!;
-                         },
-                       )
+                      DateWidget(
+                        date: (p0) {
+                          dateController.text = p0!;
+                        },
+                      )
                     ],
                   ),
                   SizedBoxApp(
@@ -142,7 +158,6 @@ class AddPostBody extends StatelessWidget {
                   ),
                   BlocConsumer<AddPostCubit, AddPostState>(
                     listener: (context, state) {
-                      print(state);
                     },
                     builder: (context, state) {
                       if (state is AddPostLoading) {
@@ -154,6 +169,7 @@ class AddPostBody extends StatelessWidget {
                           child: MaterialButton(
                             onPressed: () {
                               BlocProvider.of<AddPostCubit>(context).addPost(
+                                  titleController.text,
                                   file,
                                   captionController.text,
                                   typeController.text,

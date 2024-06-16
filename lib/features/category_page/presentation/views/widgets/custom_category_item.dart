@@ -31,9 +31,7 @@ class CustomCategoryItemState extends State<CustomCategoryItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.data["desc"]
-                      .toString()
-                      .substring(0, 5),
+                  widget.data["title"].toString(),
                   style: AppTextStyles.style14_800(context, CustomColor.white),
                 ),
                 SizedBox(
@@ -77,17 +75,19 @@ class CustomCategoryItemState extends State<CustomCategoryItem> {
                       MaterialButton(
                         height: 25.h(context),
                         minWidth: 30.w(context),
-                        onPressed: isSold.isNegative ? (){} : () {
-                          print(isSold);
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const BidView()));
-                        },
+                        onPressed: isSold.isNegative
+                            ? () {}
+                            : () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>  BidView(data:widget.data,)));
+                              },
                         color: Colors.green,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7)),
-                        child:  Text(
-                          isSold.isNegative?"Sold":'Bid Now',
-                          style: const TextStyle(fontSize: 9, color: Colors.white),
+                        child: Text(
+                          isSold.isNegative ? "Sold" : 'Bid Now',
+                          style:
+                              const TextStyle(fontSize: 9, color: Colors.white),
                         ),
                       ),
                     ],

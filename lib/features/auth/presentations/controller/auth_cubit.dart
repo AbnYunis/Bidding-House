@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -29,7 +29,6 @@ class AuthCubit extends Cubit<AuthState> {
         'email': email,
       });
       emit(AuthSuccess('Account created successfully'));
-      print('credential $credential');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         emit(AuthFailure('The password provided is too weak.'));
@@ -44,10 +43,9 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logIn(final String email, final String password) async {
     try {
       emit(AuthLoading());
-      final credential = await FirebaseAuth.instance
+     await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       emit(AuthSuccess('Login Success'));
-      print('credential $credential');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(AuthFailure('No user found for that email.'));

@@ -15,7 +15,6 @@ class _CustomBNBState extends State<CustomBNB> {
 
   @override
   Widget build(BuildContext context) {
-    List<File?> image ;
     List<Widget> screens = [
       const HomeView(),
       const AuctionView(),
@@ -35,7 +34,7 @@ class _CustomBNBState extends State<CustomBNB> {
         extendBody: true,
         body: screens[currentIndex],
         bottomNavigationBar: Container(
-          color: Color(0xFF2E2E2F),
+          color: const Color(0xFF2E2E2F),
           width: double.infinity,
           height: 64.h(context),
           child: Row(

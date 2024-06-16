@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bids_state.dart';
@@ -24,7 +25,9 @@ class GetPostCubit extends Cubit<GetPostState> {
 
       emit(GetPostSuccess(response.data()!['posts']));
     } catch (e) {
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: $e');
+      }
       emit(GetPostFailure(e.toString()));
     }
   }

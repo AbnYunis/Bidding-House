@@ -1,12 +1,15 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/features/bid/presentation/controllers/bidding_now_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecondBidSection extends StatelessWidget {
-  const SecondBidSection({super.key});
+  const SecondBidSection({super.key, required this.data});
+
+  final Map data;
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      height:448.h(context) ,
+    return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
           color: Color(0xff14181B),
@@ -18,9 +21,8 @@ class SecondBidSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Samsung Galaxy A55',
-                style:
-                AppTextStyles.style24_700(context, CustomColor.white),
+                data["title"],
+                style: AppTextStyles.style24_700(context, CustomColor.white),
               ),
               SizedBoxApp(
                 h: 5.h(context),
@@ -36,8 +38,8 @@ class SecondBidSection extends StatelessWidget {
                   ),
                   Text(
                     'Milinda Peterson',
-                    style: AppTextStyles.style14_400(
-                        context, CustomColor.white),
+                    style:
+                        AppTextStyles.style14_400(context, CustomColor.white),
                   ),
                 ],
               ),
@@ -46,68 +48,76 @@ class SecondBidSection extends StatelessWidget {
               ),
               Text(
                 'Description',
-                style:
-                AppTextStyles.style14_800(context, CustomColor.yellow),
+                style: AppTextStyles.style14_800(context, CustomColor.yellow),
               ),
               Text(
-                'The phone with a water -resistant glass design and the phone works with the new Samsung processor Exynos 1480 with a super amplid screen 120Hz and a 50 -megapixel rear camera with optical stabilizer and a 32 -megapixel front camera and a battery with a capacity of 5000 mASupports the NFC feature.The phone supports two Nano SIM calls.The 2G, 3G, 4G and 5G communication networks support the second generation.The phone comes with dimensions of 161.1 x 77.4 x 8.2 mm.',
-                style:
-                AppTextStyles.style14_400(context, CustomColor.white),
+                data["desc"],
+                style: AppTextStyles.style14_400(context, CustomColor.white),
               ),
               SizedBoxApp(
                 h: 15.h(context),
               ),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: const Color(0xffD9D9D9),
-                  ),
-                  height: 50.h(context),
-                  width: 270.w(context),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              BlocConsumer<BiddingNowCubit, BiddingNowState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return Column(
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.remove,
-                          color: Color(0xff73807F),
+                      Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xffD9D9D9),
+                          ),
+                          height: 50.h(context),
+                          width: 270.w(context),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.remove,
+                                  color: Color(0xff73807F),
+                                ),
+                              ),
+                              if (state is BiddingNowSuccess)
+                                Text(
+                                  state.posts.isEmpty?'\$${data["price"]}':"\$${state.posts.map((person) => int.parse(person['price']!)).reduce((a, b) => a > b ? a : b)}",
+                                  style: AppTextStyles.style14_800(
+                                      context, CustomColor.yellow),
+                                ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.add,
+                                  color: Color(0xff73807F),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Text(
-                        '\$ 10.000',
-                        style: AppTextStyles.style14_800(
-                            context, CustomColor.yellow),
+                      SizedBoxApp(
+                        h: 10.h(context),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.add,
-                          color: Color(0xff73807F),
+                      Center(
+                        child: MaterialButton(
+                          height: 50.h(context),
+                          minWidth: 270.w(context),
+                          onPressed: () {},
+                          color: Colors.green,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(7)),
+                          child: Text(
+                            'Bid Now',
+                            style: AppTextStyles.style20_800(
+                                context, CustomColor.white),
+                          ),
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-              SizedBoxApp(
-                h: 10.h(context),
-              ),
-              Center(
-                child: MaterialButton(
-                  height: 50.h(context),
-                  minWidth: 270.w(context),
-                  onPressed: () {},
-                  color: Colors.green,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7)),
-                  child: Text(
-                    'Bid Now',
-                    style: AppTextStyles.style20_800(
-                        context, CustomColor.white),
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),

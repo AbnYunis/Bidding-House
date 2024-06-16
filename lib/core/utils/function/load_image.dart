@@ -22,7 +22,7 @@ Future<List<File>> chooseImages(BuildContext context) async {
                   Navigator.of(context).pop();
                 });
               },
-              trailing: Icon(
+              trailing: const Icon(
                 Icons.camera_alt_outlined,
                 color: Colors.red,
               ),
@@ -31,13 +31,13 @@ Future<List<File>> chooseImages(BuildContext context) async {
               title: const Text("Gallery"),
               onTap: () {
                 pickMultipleImagesFromGallery().then((values) {
-                  if (values != null && values.isNotEmpty) {
+                  if (values.isNotEmpty) {
                     imageFiles.addAll(values);
                   }
                   Navigator.of(context).pop();
                 });
               },
-              trailing: Icon(
+              trailing: const Icon(
                 Icons.image,
                 color: Colors.red,
               ),
@@ -65,10 +65,8 @@ Future<List<File>> pickMultipleImagesFromGallery() async {
   final picker = ImagePicker();
   final pickedFiles = await picker.pickMultiImage();
 
-  if (pickedFiles != null) {
-    for (var pickedFile in pickedFiles) {
-      imageFiles.add(File(pickedFile.path));
-    }
+  for (var pickedFile in pickedFiles) {
+    imageFiles.add(File(pickedFile.path));
   }
 
   return imageFiles;

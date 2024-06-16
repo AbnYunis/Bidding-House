@@ -1,19 +1,24 @@
-import '../../../../../core/utils/imports.dart';
+import 'package:flutter/material.dart';
 
 class DateWidget extends StatefulWidget {
   const DateWidget({
-    super.key, required this.date,
+    super.key,
+    required this.date,
   });
+
   final void Function(String?) date;
+
   @override
   State<DateWidget> createState() => _DateState();
 }
+
 class _DateState extends State<DateWidget> {
   String text = "day\\mon\\year";
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()async {
+      onTap: () async {
         final DateTime? pickedDate = await showDatePicker(
           context: context,
           builder: (context, child) {
@@ -35,13 +40,13 @@ class _DateState extends State<DateWidget> {
           lastDate: DateTime(2025),
         );
 
-        if (pickedDate != null) {
+        if (pickedDate != null && context.mounted) {
           final TimeOfDay? pickedTime = await showTimePicker(
-            context: context,
             initialTime: TimeOfDay.now(),
+            context: context,
           );
 
-          if (pickedTime != null) {
+          if (pickedTime != null && context.mounted) {
             final DateTime combinedDateTime = DateTime(
               pickedDate.year,
               pickedDate.month,
@@ -52,17 +57,14 @@ class _DateState extends State<DateWidget> {
 
             setState(() {
               widget.date(combinedDateTime.toLocal().toIso8601String());
-              text =
-              "${combinedDateTime.day}/${combinedDateTime.month}/${combinedDateTime.year} ${pickedTime.format(context)}";
+              text = "${combinedDateTime.day}/${combinedDateTime.month}/${combinedDateTime.year} ${pickedTime.format(context)}";
             });
-
-            print(combinedDateTime.toLocal().toIso8601String());
           }
         }
       },
       child: Text(
         text,
-        style: AppTextStyles.style16_800(context, CustomColor.white),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }
