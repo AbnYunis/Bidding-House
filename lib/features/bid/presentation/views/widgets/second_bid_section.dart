@@ -2,10 +2,25 @@ import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/bid/presentation/controllers/bidding_now_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SecondBidSection extends StatelessWidget {
+class SecondBidSection extends StatefulWidget {
   const SecondBidSection({super.key, required this.data});
 
   final Map data;
+
+  @override
+  State<SecondBidSection> createState() => _SecondBidSectionState();
+}
+
+class _SecondBidSectionState extends State<SecondBidSection> {
+  late int bigPrice;
+  late int price;
+
+  @override
+  void initState() {
+    super.initState();
+    bigPrice = int.parse(widget.data["price"]);
+    price = int.parse(widget.data["price"]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +36,7 @@ class SecondBidSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                data["title"],
+                widget.data["title"],
                 style: AppTextStyles.style24_700(context, CustomColor.white),
               ),
               SizedBoxApp(
@@ -51,14 +66,27 @@ class SecondBidSection extends StatelessWidget {
                 style: AppTextStyles.style14_800(context, CustomColor.yellow),
               ),
               Text(
-                data["desc"],
+                widget.data["desc"],
                 style: AppTextStyles.style14_400(context, CustomColor.white),
               ),
               SizedBoxApp(
                 h: 15.h(context),
               ),
               BlocConsumer<BiddingNowCubit, BiddingNowState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state is BiddingNowSuccess) {
+                    if (state.posts.isNotEmpty) {
+                      setState(() {
+                        bigPrice = state.posts
+                            .map((person) => int.parse(person['price']!))
+                            .reduce((a, b) => a > b ? a : b);
+                        price = state.posts
+                            .map((person) => int.parse(person['price']!))
+                            .reduce((a, b) => a > b ? a : b);
+                      });
+                    }
+                  }
+                },
                 builder: (context, state) {
                   return Column(
                     children: [
@@ -74,7 +102,12 @@ class SecondBidSection extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (price > bigPrice) {
+                                    price -= 500;
+                                    setState(() {});
+                                  }
+                                },
                                 icon: const Icon(
                                   Icons.remove,
                                   color: Color(0xff73807F),
@@ -82,12 +115,15 @@ class SecondBidSection extends StatelessWidget {
                               ),
                               if (state is BiddingNowSuccess)
                                 Text(
-                                  state.posts.isEmpty?'\$${data["price"]}':"\$${state.posts.map((person) => int.parse(person['price']!)).reduce((a, b) => a > b ? a : b)}",
+                                  '\$$price',
                                   style: AppTextStyles.style14_800(
                                       context, CustomColor.yellow),
                                 ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  price += 500;
+                                  setState(() {});
+                                },
                                 icon: const Icon(
                                   Icons.add,
                                   color: Color(0xff73807F),
@@ -100,11 +136,20 @@ class SecondBidSection extends StatelessWidget {
                       SizedBoxApp(
                         h: 10.h(context),
                       ),
+
                       Center(
-                        child: MaterialButton(
+                        child: state is BiddingNowUpdateLoading ?const CircularProgressIndicator(): MaterialButton(
                           height: 50.h(context),
                           minWidth: 270.w(context),
-                          onPressed: () {},
+                          onPressed: () {
+                            if(price > bigPrice) {
+                              context
+                                  .read<BiddingNowCubit>()
+                                  .updateBiddingPeople( price.toString(),widget.data['id'],);
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) =>  BidView(data:widget.data,)));
+                            }
+                          },
                           color: Colors.green,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7)),

@@ -1,15 +1,15 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/profile/presentation/views/widgets/custom_profile_item.dart';
 class ProfileListItems extends StatelessWidget {
-  const ProfileListItems({super.key});
-
+  const ProfileListItems({super.key, required this.posts});
+  final List posts;
   @override
   Widget build(BuildContext context) {
     return  Expanded(
       child: ListView.builder(
-        itemCount: 5,
+        itemCount: posts.length,
         itemBuilder: (context, index) =>
-           const CustomProfileItem()
+            CustomProfileItem(data: posts[index],)
       ),
     );
   }

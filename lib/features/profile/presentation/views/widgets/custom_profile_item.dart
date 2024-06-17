@@ -1,8 +1,8 @@
 import 'package:bidding_house/core/utils/imports.dart';
 
 class CustomProfileItem extends StatelessWidget {
-  const CustomProfileItem({super.key});
-
+  const CustomProfileItem({super.key, required this.data});
+  final Map data;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -10,9 +10,9 @@ class CustomProfileItem extends StatelessWidget {
           horizontal: 10.w(context), vertical: 10.h(context)),
       child: Row(
         children: [
-          const MyImage(
+          MyImage(
             imageUrl:
-                'https://m.media-amazon.com/images/I/51yR9cIxYPL._AC_SX569_.jpg',
+                data["images"][0],
           ),
           SizedBoxApp(
             w: 10.w(context),
@@ -25,24 +25,24 @@ class CustomProfileItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Textured Summer Shirt',
+                    data["title"],
                     style:
                         AppTextStyles.style14_800(context, CustomColor.white),
                   ),
                   SizedBox(
                     width: 200.w(context),
                     child: Text(
-                      'Black Regular Fit Textured Summer Shirt TMNSS23GO00055',
+                      data["desc"],
                       maxLines: 3,
                       style: AppTextStyles.style10_800(context),
                     ),
                   ),
                   Text(
-                    ' The price  \$${500}',
+                    ' The price  \$${data["price"]}',
                     style: AppTextStyles.style10_800Price(context),
                   ),
                   Text(
-                    '11 Nov 2023',
+                    data['date'].toString().substring(0,data['date'].toString().indexOf("T")),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style:

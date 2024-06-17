@@ -1,4 +1,3 @@
-
 import 'package:bidding_house/core/utils/function/load_image.dart';
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/profile/presentation/views/profile_view.dart';
@@ -60,7 +59,8 @@ class _CustomBNBState extends State<CustomBNB> {
                       ),
                       Text(
                         label[index],
-                        style: AppTextStyles.style7_700(context, CustomColor.white),
+                        style: AppTextStyles.style7_700(
+                            context, CustomColor.white),
                       )
                     ],
                   ),
@@ -72,16 +72,16 @@ class _CustomBNBState extends State<CustomBNB> {
         floatingActionButton: GestureDetector(
           onTap: () {
             chooseImages(context).then((value) {
-              context.push(Routers.addPost,extra:value );
+              if (value.isNotEmpty) context.push(Routers.addPost, extra: value);
             });
           },
           child: CircleAvatar(
             radius: 29.w(context),
-            backgroundColor:Colors.white,
+            backgroundColor: Colors.white,
             child: Icon(
               Icons.add,
               size: 24.w(context),
-              color:Colors.black,
+              color: Colors.black,
             ),
           ),
         ),

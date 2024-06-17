@@ -13,3 +13,12 @@ final class BiddingNowSuccess extends BiddingNowState {
   final List posts;
   BiddingNowSuccess(this.posts);
 }
+final class BiddingNowUpdateLoading extends BiddingNowState {}
+final class BiddingNowUpdateFailure extends BiddingNowState {
+  final String message ;
+
+  BiddingNowUpdateFailure(this.message);
+}
+final class BiddingNowUpdateSuccess extends BiddingNowState {
+  BiddingNowUpdateSuccess();
+}

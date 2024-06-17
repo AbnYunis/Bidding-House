@@ -19,7 +19,7 @@ Future<List<File>> chooseImages(BuildContext context) async {
                   if (value != null) {
                     imageFiles.add(value);
                   }
-                  Navigator.of(context).pop();
+                  Navigator.of(context1).pop();
                 });
               },
               trailing: const Icon(
@@ -34,7 +34,7 @@ Future<List<File>> chooseImages(BuildContext context) async {
                   if (values.isNotEmpty) {
                     imageFiles.addAll(values);
                   }
-                  Navigator.of(context).pop();
+                  Navigator.of(context1).pop();
                 });
               },
               trailing: const Icon(
