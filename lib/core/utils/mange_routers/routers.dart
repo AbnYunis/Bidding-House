@@ -7,6 +7,7 @@ abstract class Routers {
   static const auction = '/auction';
   static const payment = '/payment';
   static const addPost = '/addPost';
+  static const biddingNow = '/biddingNow';
   static GoRoute goRouteFade(Widget screen, String path) {
     return GoRoute(
       path: path,

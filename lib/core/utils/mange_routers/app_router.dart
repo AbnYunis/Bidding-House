@@ -16,6 +16,24 @@ abstract class AppRouter {
           state: state,
           child: AddPostView(image: state.extra as List<File>,),
         ),
+      ),
+      GoRoute(
+        path: Routers.biddingNow,
+        builder: (context, state) => BidView(data: state.extra as Map,),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child: BidView(data: state.extra as Map,),
+        ),
+      ),
+      GoRoute(
+        path: Routers.category,
+        builder: (context, state) => CategoryView(title:state.extra as String),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child: CategoryView(title:state.extra as String),
+        ),
       )
     ],
   );

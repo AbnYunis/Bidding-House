@@ -18,7 +18,7 @@ class AuthBody extends StatelessWidget {
           return snackBar(state.message, context, Colors.red);
         }
         if (state is AuthSuccess) {
-          context.pushReplacement(Routers.bnb);
+          context.go(Routers.bnb);
           return snackBar(state.message, context, Colors.white);
         }
       },

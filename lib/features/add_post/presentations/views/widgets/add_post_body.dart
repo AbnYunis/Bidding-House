@@ -158,6 +158,9 @@ class AddPostBody extends StatelessWidget {
                   ),
                   BlocConsumer<AddPostCubit, AddPostState>(
                     listener: (context, state) {
+                      if (state is AddPostSuccess) {
+                        context.pop();
+                      }
                     },
                     builder: (context, state) {
                       if (state is AddPostLoading) {

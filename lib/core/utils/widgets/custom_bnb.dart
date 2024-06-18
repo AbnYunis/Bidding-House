@@ -29,7 +29,7 @@ class _CustomBNBState extends State<CustomBNB> {
       (Carbon.filter),
       (MaterialSymbols.account_circle),
     ];
-    List<String> label = ['Home', 'Book', 'Offers', 'More'];
+    List<String> label = ['Home', 'Search', 'My Bids', 'Profile'];
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,

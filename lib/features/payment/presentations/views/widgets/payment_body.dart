@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/payment/presentations/views/widgets/payment_appbar.dart';
 
@@ -36,24 +35,21 @@ class _PaymentBodyState extends State<PaymentBody> {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      log('payment');
+                      // Ensure the navigation method matches your router setup
+                       GoRouter.of(context).go(Routers.bnb) ;
                     } else {
-                      // Navigator.of(context)
-                      //     .push(MaterialPageRoute(builder: (context) {
-                      //   return const ThankYouView();
-                      // }));
-                      autovalidateMode = AutovalidateMode.always;
-                      setState(() {});
+                      setState(() {
+                        autovalidateMode = AutovalidateMode.always;
+                      });
                     }
                   },
                   color: Colors.green,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  height: 50.h(context),
-                  minWidth: 270.w(context),
+                  height: 50, // Assuming you have a method to convert size
+                  minWidth: 270, // Assuming you have a method to convert size
                   child: Text(
                     'Payment',
-                    style:
-                        AppTextStyles.style16_800(context, CustomColor.white),
+                    style: AppTextStyles.style16_800(context, CustomColor.white),
                   ),
                 ),
               )),

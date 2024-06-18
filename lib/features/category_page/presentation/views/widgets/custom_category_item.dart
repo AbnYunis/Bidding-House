@@ -78,8 +78,7 @@ class CustomCategoryItemState extends State<CustomCategoryItem> {
                         onPressed: isSold.isNegative
                             ? () {}
                             : () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>  BidView(data:widget.data,)));
+                               context.push(Routers.biddingNow,extra: widget.data);
                               },
                         color: Colors.green,
                         shape: RoundedRectangleBorder(
