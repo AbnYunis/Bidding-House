@@ -1,85 +1,52 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/features/auction/presentations/controller/auction_cubit.dart';
+import 'package:bidding_house/features/auction/presentations/views/widgets/custom_auction_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuctionBody extends StatelessWidget {
   const AuctionBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 26.w(context)),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w(context)),
       child: Column(
         children: [
           const AuctionAppBar(),
           SizedBoxApp(
-            h: 57.h(context),
+            h: 20.h(context),
           ),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 135.w(context) / 200.h(context),
-                crossAxisCount: 2,
-                crossAxisSpacing: 15.w(context),
-                mainAxisSpacing: 12.h(context),
-              ),
-              itemCount: 8,
-              itemBuilder: (context, index) => GestureDetector(
-                onTap: () {},
-                child: Column(
-                  children: [
-                    const MyImage(imageUrl: "https://picsum.photos/200/300"),
-                    SizedBoxApp(h: 3.h(context)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Arabian horse",
-                              style: AppTextStyles.style10_700(
-                                  context, CustomColor.white),
-                            ),
-                            Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      "current Bid",
-                                      style: AppTextStyles.style7_700(
-                                          context, CustomColor.grey),
-                                    ),
-                                    Text(
-                                      "\$2500",
-                                      style: AppTextStyles.style8_400(
-                                          context, CustomColor.yellow),),
-                                  ],
-                                ),
-                                SizedBoxApp(w: 10.w(context)),
-                                MaterialButton(
-                                  height: 25.h(context),
-                                  minWidth: 50.w(context),
-                                  onPressed: () {},
-                                  color: Colors.green,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(7)),
-                                  child: const Text(
-                                    'Bid Now',
-                                    style: TextStyle(fontSize: 9, color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+          BlocConsumer<AuctionCubit, AuctionState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              if (state is AuctionFailure) {
+                return Center(
+                  child: Text(state.message),
+                );
+              } else if (state is AuctionSuccess) {
+                Map<String, dynamic> data = state.post.data()!;
 
-                      ],
-                    )
-                  ],
-                )
-              ),
-            ),
-          ),
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: data["posts"].length,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        context.push(Routers.userDetailsPost,
+                            extra: {'index': index, 'data': data});
+                      },
+                      child: CustomAuctionItem(
+                        data: data["posts"][index],
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          )
         ],
       ),
     );

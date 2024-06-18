@@ -3,6 +3,8 @@ import 'package:bidding_house/features/bid/presentation/controllers/bidding_now_
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bidding_people.dart';
+
 class SecondBidSection extends StatefulWidget {
   const SecondBidSection({super.key, required this.data});
 
@@ -85,11 +87,13 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                   }
                 },
                 builder: (context, state) {
-                 if (widget.data["uId"] ==
+                  if (widget.data["uId"] ==
                           FirebaseAuth.instance.currentUser!.uid &&
                       state is BiddingNowSuccess) {
                     return state.posts.isNotEmpty
-                        ? BiddingPeople(data: state.posts,)
+                        ? BiddingPeople(
+                            data: state.posts,
+                          )
                         : Center(
                             child: Text(
                               'No bids yet',
@@ -97,7 +101,7 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                                   context, CustomColor.white),
                             ),
                           );
-                  }else if(state is BiddingNowSuccess){
+                  } else if (state is BiddingNowSuccess) {
                     return Column(
                       children: [
                         Center(
@@ -123,11 +127,11 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                                     color: Color(0xff73807F),
                                   ),
                                 ),
-                                  Text(
-                                    '\$$price',
-                                    style: AppTextStyles.style14_800(
-                                        context, CustomColor.yellow),
-                                  ),
+                                Text(
+                                  '\$$price',
+                                  style: AppTextStyles.style14_800(
+                                      context, CustomColor.yellow),
+                                ),
                                 IconButton(
                                   onPressed: () {
                                     price += 500;
@@ -149,37 +153,36 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                           child: state is BiddingNowUpdateLoading
                               ? const CircularProgressIndicator()
                               : MaterialButton(
-                            height: 50.h(context),
-                            minWidth: 270.w(context),
-                            onPressed: () {
-                              if (price > bigPrice) {
-                                context
-                                    .read<BiddingNowCubit>()
-                                    .updateBiddingPeople(
-                                  price.toString(),
-                                  widget.data['id'],widget.data
-                                );
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (context) =>  BidView(data:widget.data,)));
-                              }
-                            },
-                            color: Colors.green,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(7)),
-                            child: Text(
-                              'Bid Now',
-                              style: AppTextStyles.style20_800(
-                                  context, CustomColor.white),
-                            ),
-                          ),
+                                  height: 50.h(context),
+                                  minWidth: 270.w(context),
+                                  onPressed: () {
+                                    if (price > bigPrice) {
+                                      context
+                                          .read<BiddingNowCubit>()
+                                          .updateBiddingPeople(price.toString(),
+                                              widget.data['id'], widget.data);
+                                      // Navigator.of(context).push(MaterialPageRoute(
+                                      //     builder: (context) =>  BidView(data:widget.data,)));
+                                    }
+                                  },
+                                  color: Colors.green,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Text(
+                                    'Bid Now',
+                                    style: AppTextStyles.style20_800(
+                                        context, CustomColor.white),
+                                  ),
+                                ),
                         ),
                       ],
                     );
-
-                               } else {
+                  } else {
                     return const Center(
                       child: CircularProgressIndicator(),
-                    );     }
+                    );
+                  }
                 },
               ),
             ],
@@ -187,45 +190,5 @@ class _SecondBidSectionState extends State<SecondBidSection> {
         ),
       ),
     );
-  }
-}
-
-class BiddingPeople extends StatelessWidget {
-  const BiddingPeople({
-    super.key, required this.data,
-  });
-final List data;
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Row(
-            children: [
-              const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2of0Y-HF1rRZGFR0XpuOU9f40bcLqQEUgaQ&s'),
-              ),
-              SizedBoxApp(
-                w: 7.w(context),
-              ),
-              Text(
-                data[index]['email'],
-                style: AppTextStyles.style14_400(
-                    context, CustomColor.white),
-              ),
-              Spacer(),
-              Text(
-                "price : \$ ${data[index]['price']}",
-                style: AppTextStyles.style14_400(
-                    context, CustomColor.white),
-              ),
-            ],
-          );
-        },
-        separatorBuilder: (context, index) =>
-            SizedBoxApp(h: 15.h(context)),
-        itemCount: data.length);
   }
 }

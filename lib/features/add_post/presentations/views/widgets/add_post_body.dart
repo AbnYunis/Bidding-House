@@ -1,5 +1,6 @@
 import 'package:bidding_house/core/utils/function/location_fun.dart';
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/core/utils/widgets/custom_snackbar.dart';
 import 'package:bidding_house/features/add_post/presentations/controllers/add_post_cubit.dart';
 import 'package:bidding_house/features/add_post/presentations/views/widgets/date_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -158,6 +159,13 @@ class AddPostBody extends StatelessWidget {
                   ),
                   BlocConsumer<AddPostCubit, AddPostState>(
                     listener: (context, state) {
+                      if (state is AddPostFailure) {
+                        snackBar(state.message, context, Colors.red);
+                      }
+                      if (state is AddPostSuccess) {
+                        snackBar(state.message, context, Colors.white);
+                        context.pop();
+                      }
                     },
                     builder: (context, state) {
                       if (state is AddPostLoading) {
