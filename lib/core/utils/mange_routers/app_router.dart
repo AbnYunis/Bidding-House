@@ -40,11 +40,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: Routers.profile,
-        builder: (context, state) =>  ProfileView(userId:state.extra as String,),
+        builder: (context, state) =>  ProfileView(userId:state.extra as String?,),
         pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
           context: context,
           state: state,
-          child:  ProfileView(userId:state.extra as String,),
+          child:  ProfileView(userId:state.extra as String?,),
         ),
       ),
       GoRoute(
