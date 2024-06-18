@@ -1,6 +1,8 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/auction/presentations/views/user_posts_details.dart';
 
+import '../../../features/profile/presentation/views/profile_view.dart';
+
 abstract class AppRouter {
   static final router = GoRouter(
     routes: [
@@ -11,15 +13,38 @@ abstract class AppRouter {
       Routers.goRouteFade(const PaymentView(), Routers.payment),
       GoRoute(
         path: Routers.addPost,
-        builder: (context, state) => AddPostView(
-          image: state.extra as List<File>,
-        ),
+        builder: (context, state) => AddPostView(image: state.extra as List<File>,),
         pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
           context: context,
           state: state,
-          child: AddPostView(
-            image: state.extra as List<File>,
-          ),
+          child: AddPostView(image: state.extra as List<File>,),
+        ),
+      ),
+      GoRoute(
+        path: Routers.biddingNow,
+        builder: (context, state) => BidView(data: state.extra as Map,),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child: BidView(data: state.extra as Map,),
+        ),
+      ),
+      GoRoute(
+        path: Routers.category,
+        builder: (context, state) => CategoryView(title:state.extra as String),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child: CategoryView(title:state.extra as String),
+        ),
+      ),
+      GoRoute(
+        path: Routers.profile,
+        builder: (context, state) =>  ProfileView(userId:state.extra as String,),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child:  ProfileView(userId:state.extra as String,),
         ),
       ),
       GoRoute(

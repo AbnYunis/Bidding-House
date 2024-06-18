@@ -87,13 +87,11 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                   }
                 },
                 builder: (context, state) {
-                  if (widget.data["uId"] ==
+                 if (widget.data["uId"] ==
                           FirebaseAuth.instance.currentUser!.uid &&
                       state is BiddingNowSuccess) {
                     return state.posts.isNotEmpty
-                        ? BiddingPeople(
-                            data: state.posts,
-                          )
+                        ? BiddingPeople(data: state.posts,)
                         : Center(
                             child: Text(
                               'No bids yet',
@@ -101,7 +99,7 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                                   context, CustomColor.white),
                             ),
                           );
-                  } else if (state is BiddingNowSuccess) {
+                  }else if(state is BiddingNowSuccess){
                     return Column(
                       children: [
                         Center(
@@ -127,11 +125,11 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                                     color: Color(0xff73807F),
                                   ),
                                 ),
-                                Text(
-                                  '\$$price',
-                                  style: AppTextStyles.style14_800(
-                                      context, CustomColor.yellow),
-                                ),
+                                  Text(
+                                    '\$$price',
+                                    style: AppTextStyles.style14_800(
+                                        context, CustomColor.yellow),
+                                  ),
                                 IconButton(
                                   onPressed: () {
                                     price += 500;
@@ -153,36 +151,37 @@ class _SecondBidSectionState extends State<SecondBidSection> {
                           child: state is BiddingNowUpdateLoading
                               ? const CircularProgressIndicator()
                               : MaterialButton(
-                                  height: 50.h(context),
-                                  minWidth: 270.w(context),
-                                  onPressed: () {
-                                    if (price > bigPrice) {
-                                      context
-                                          .read<BiddingNowCubit>()
-                                          .updateBiddingPeople(price.toString(),
-                                              widget.data['id'], widget.data);
-                                      // Navigator.of(context).push(MaterialPageRoute(
-                                      //     builder: (context) =>  BidView(data:widget.data,)));
-                                    }
-                                  },
-                                  color: Colors.green,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                  child: Text(
-                                    'Bid Now',
-                                    style: AppTextStyles.style20_800(
-                                        context, CustomColor.white),
-                                  ),
-                                ),
+                            height: 50.h(context),
+                            minWidth: 270.w(context),
+                            onPressed: () {
+                              if (price > bigPrice) {
+                                context
+                                    .read<BiddingNowCubit>()
+                                    .updateBiddingPeople(
+                                  price.toString(),
+                                  widget.data['id'],widget.data
+                                );
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) =>  BidView(data:widget.data,)));
+                              }
+                            },
+                            color: Colors.green,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7)),
+                            child: Text(
+                              'Bid Now',
+                              style: AppTextStyles.style20_800(
+                                  context, CustomColor.white),
+                            ),
+                          ),
                         ),
                       ],
                     );
-                  } else {
+
+                               } else {
                     return const Center(
                       child: CircularProgressIndicator(),
-                    );
-                  }
+                    );     }
                 },
               ),
             ],
@@ -192,3 +191,4 @@ class _SecondBidSectionState extends State<SecondBidSection> {
     );
   }
 }
+

@@ -25,7 +25,7 @@ class BiddingPeople extends StatelessWidget {
                 style: AppTextStyles.style14_400(
                     context, CustomColor.white),
               ),
-              const Spacer(),
+              Spacer(),
               Text(
                 "price : \$ ${data[index]['price']}",
                 style: AppTextStyles.style14_400(
