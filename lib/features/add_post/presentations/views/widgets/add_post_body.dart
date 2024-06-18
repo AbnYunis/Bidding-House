@@ -4,6 +4,8 @@ import 'package:bidding_house/features/add_post/presentations/controllers/add_po
 import 'package:bidding_house/features/add_post/presentations/views/widgets/date_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/widgets/custom_snackbar.dart';
+
 class AddPostBody extends StatelessWidget {
   const AddPostBody({super.key, required this.file});
 
@@ -159,7 +161,11 @@ class AddPostBody extends StatelessWidget {
                   BlocConsumer<AddPostCubit, AddPostState>(
                     listener: (context, state) {
                       if (state is AddPostSuccess) {
+                        snackBar(state.message, context, Colors.white);
                         context.pop();
+                      }
+                      if(state is AddPostFailure){
+                        snackBar(state.message, context, Colors.red);
                       }
                     },
                     builder: (context, state) {

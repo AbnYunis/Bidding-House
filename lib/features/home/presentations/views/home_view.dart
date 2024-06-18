@@ -38,6 +38,26 @@ class HomeView extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const Divider(
+                    thickness: .5,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      context.pop();
+                      context.push(Routers.auction);
+                    },
+                    title: Text(
+                      'Auction',
+                      style:
+                      AppTextStyles.style20_800(context, CustomColor.white),
+                    ),
+                  ),
+                  const Divider(
+                    thickness: .5,
+                  ),
+                  SizedBoxApp(
+                    h: 20..h(context),
+                  ),
                   SizedBox(
                     width: 200.w(context),
                     child: BlocConsumer<SignOutCubit, SignOutState>(

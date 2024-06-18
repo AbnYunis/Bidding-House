@@ -46,7 +46,6 @@ export 'package:bidding_house/features/add_post/presentations/views/widgets/drop
 export  'package:bidding_house/features/bid/presentation/views/widgets/image_section.dart';
 export  'package:bidding_house/features/bid/presentation/views/widgets/second_bid_section.dart';
 export 'package:bidding_house/features/bid/presentation/views/bid_view.dart';
-export 'package:bidding_house/features/edit_profile/presentation/views/widgets/edit_profile_body.dart';
 export 'package:bidding_house/features/category_page/presentation/views/category_view.dart';
 export 'package:bidding_house/features/category_page/presentation/views/widgets/category_appbar.dart';
 export 'package:bidding_house/features/category_page/presentation/views/widgets/custom_category_item.dart';

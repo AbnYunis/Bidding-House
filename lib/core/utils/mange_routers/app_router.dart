@@ -1,4 +1,5 @@
 import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/features/auction/presentations/views/user_posts_details.dart';
 
 import '../../../features/profile/presentation/views/profile_view.dart';
 
@@ -44,6 +45,19 @@ abstract class AppRouter {
           context: context,
           state: state,
           child:  ProfileView(userId:state.extra as String,),
+        ),
+      ),
+      GoRoute(
+        path: Routers.userDetailsPost,
+        builder: (context, state) => UserPostsDetails(
+          data: state.extra as Map<String, dynamic>,
+        ),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child: UserPostsDetails(
+            data: state.extra as Map<String, dynamic>,
+          ),
         ),
       ),
     ],
