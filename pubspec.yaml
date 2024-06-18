@@ -59,6 +59,7 @@ dependencies:
   multi_image_picker_view: ^1.0.2
   device_preview: ^1.2.0
   uuid: ^4.4.0
+  flutter_rating: ^2.0.2
 
 dev_dependencies:
   flutter_test:

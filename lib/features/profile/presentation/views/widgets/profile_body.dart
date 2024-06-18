@@ -1,7 +1,9 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/profile/presentation/controller/profile_cubit.dart';
 import 'package:bidding_house/features/profile/presentation/views/widgets/profile_list_items.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating/flutter_rating.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({super.key});
@@ -46,6 +48,18 @@ class ProfileBody extends StatelessWidget {
                         ],
                       ),
                     ),
+                    if (state.post.data()!["posts"][0]['uId'] !=
+                        FirebaseAuth.instance.currentUser!.uid) ...[
+                      SizedBoxApp(
+                        h: 10.h(context),
+                      ),
+                      StarRating(
+                        rating: state.post.data()!["posts"].length > 5
+                            ? 5
+                            : state.post.data()!["posts"].length.toDouble(),
+                        starCount: 5,
+                      ),
+                    ],
                     SizedBoxApp(
                       h: 20.h(context),
                     ),
@@ -59,11 +73,13 @@ class ProfileBody extends StatelessWidget {
                             context, CustomColor.white),
                       ),
                     ),
-                    ProfileListItems(posts: state.post.data()!["posts"],),
+                    ProfileListItems(
+                      posts: state.post.data()!["posts"],
+                    ),
                   ],
                 ),
               )
-            : const Center(child:  CircularProgressIndicator());
+            : const Center(child: CircularProgressIndicator());
       },
     );
   }

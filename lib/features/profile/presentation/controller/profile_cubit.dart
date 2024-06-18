@@ -12,14 +12,13 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileInitial());
   }
 
-  Future<void> getProfile(
-     ) async {
+  Future<void> getProfile({ String? id}) async {
     try {
       emit(ProfileLoading());
 
       var res=await FirebaseFirestore.instance
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(id??FirebaseAuth.instance.currentUser!.uid)
           .get();
       emit(ProfileSuccess(res));
     } catch (e) {

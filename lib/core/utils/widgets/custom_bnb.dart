@@ -19,7 +19,7 @@ class _CustomBNBState extends State<CustomBNB> {
     List<Widget> screens = [
       const HomeView(),
       //const AuctionView(),
-      SearchView(),
+      const   SearchView(),
       const BidsView(),
       const ProfileView(),
     ];
@@ -29,7 +29,7 @@ class _CustomBNBState extends State<CustomBNB> {
       (Carbon.filter),
       (MaterialSymbols.account_circle),
     ];
-    List<String> label = ['Home', 'Book', 'Offers', 'More'];
+    List<String> label = ['Home', 'Search', 'My Bids', 'Profile'];
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,

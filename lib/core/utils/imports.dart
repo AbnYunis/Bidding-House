@@ -51,4 +51,4 @@ export 'package:bidding_house/features/category_page/presentation/views/category
 export 'package:bidding_house/features/category_page/presentation/views/widgets/category_appbar.dart';
 export 'package:bidding_house/features/category_page/presentation/views/widgets/custom_category_item.dart';
 export 'package:bidding_house/features/category_page/presentation/views/widgets/category_body.dart';
-export 'package:bidding_house/features/category_page/presentation/views/widgets/timer.dart';
+export 'package:bidding_house/core/utils/widgets/timer.dart';

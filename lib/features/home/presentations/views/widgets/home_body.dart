@@ -16,10 +16,9 @@ class HomeBody extends StatelessWidget {
             h: 57.h(context),
           ),
           BlocConsumer<SignOutCubit, SignOutState>(
-            listener: (context, state) {
-            },
+            listener: (context, state) {},
             builder: (context, state) {
-              if(state is HomeDataSuccess){
+              if (state is HomeDataSuccess) {
                 return Expanded(
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -29,25 +28,21 @@ class HomeBody extends StatelessWidget {
                       mainAxisSpacing: 20.h(context),
                     ),
                     itemCount: state.message.docs.length,
-                    itemBuilder: (context, index) =>
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      CategoryView(title:state.message.docs[index].get('name')),
-                                ));
-                          },
-                          child: CustomHomeItem(
-                            image: state.message.docs[index].get('imageUrl'),
-                            text: state.message.docs[index].get('name'),
-                          ),
-                        ),
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        context.push(Routers.category,extra: state.message.docs[index].get('name'));
+                      },
+                      child: CustomHomeItem(
+                        image: state.message.docs[index].get('imageUrl'),
+                        text: state.message.docs[index].get('name'),
+                      ),
+                    ),
                   ),
                 );
-              }else{
-                return const Center(child: CircularProgressIndicator(),);
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
             },
           ),
