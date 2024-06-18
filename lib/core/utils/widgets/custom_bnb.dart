@@ -21,7 +21,7 @@ class _CustomBNBState extends State<CustomBNB> {
       //const AuctionView(),
       const   SearchView(),
       const BidsView(),
-      const ProfileView(),
+      const ProfileView(userId: null,),
     ];
     List<String> icons = [
       (MaterialSymbols.home_outline_rounded),
