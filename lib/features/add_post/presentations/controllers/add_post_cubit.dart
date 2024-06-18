@@ -46,6 +46,7 @@ class AddPostCubit extends Cubit<AddPostState> {
           .update({
         "posts": FieldValue.arrayUnion([
           {
+            "uId": FirebaseAuth.instance.currentUser!.uid.toString(),
             'id': postId,
             'title': title,
             'images': postImages,
@@ -63,6 +64,7 @@ class AddPostCubit extends Cubit<AddPostState> {
           .update({
         "posts": FieldValue.arrayUnion([
           {
+            "uId": FirebaseAuth.instance.currentUser!.uid.toString(),
             'id': postId,
             'title': title,
             'images': postImages,
@@ -82,6 +84,7 @@ class AddPostCubit extends Cubit<AddPostState> {
           .update({
         "posts": FieldValue.arrayUnion([
           {
+            "uId": FirebaseAuth.instance.currentUser!.uid.toString(),
             'id': postId,
             'title': title,
             'images': postImages,

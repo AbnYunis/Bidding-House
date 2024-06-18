@@ -25,6 +25,8 @@ class AuthCubit extends Cubit<AuthState> {
           .collection('users')
           .doc(credential.user!.uid)
           .set({
+        'posts': [],
+        'userBidding': [],
         'username': userName,
         'email': email,
       });

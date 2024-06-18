@@ -1,6 +1,7 @@
 import 'package:bidding_house/core/utils/function/load_image.dart';
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/profile/presentation/views/profile_view.dart';
+import 'package:bidding_house/features/search/presentations/views/search_view.dart';
 import 'package:iconify_flutter/icons/material_symbols.dart';
 
 class CustomBNB extends StatefulWidget {
@@ -17,7 +18,8 @@ class _CustomBNBState extends State<CustomBNB> {
   Widget build(BuildContext context) {
     List<Widget> screens = [
       const HomeView(),
-      const AuctionView(),
+      //const AuctionView(),
+      SearchView(),
       const BidsView(),
       const ProfileView(),
     ];

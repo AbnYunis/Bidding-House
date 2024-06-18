@@ -1,27 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(SearchInitial());
-  bool login = true;
+  List filteredResults = [];
 
-  void changeLogin() {
-    login = !login;
-    emit(SearchInitial());
-  }
-
-  Future<void> getSearch(
-     ) async {
+  Future<void> getSearch(String value) async {
     try {
       emit(SearchLoading());
-
-      var res=await FirebaseFirestore.instance
+      var res = await FirebaseFirestore.instance
           .collection('Search')
-          .doc("AllPosts")
+          .doc('AllPosts')
           .get();
-      emit(SearchSuccess(res.data()!["posts"]));
+       filteredResults.clear();
+      for (var doc in res.data()!['posts']) {
+        if (doc['desc'].contains(value)) {
+          filteredResults.add(doc);
+        }
+      }
+      emit(SearchSuccess());
     } catch (e) {
       emit(SearchFailure('Opps! , There is an error, please try again later.'));
     }

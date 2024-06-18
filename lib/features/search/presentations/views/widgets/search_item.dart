@@ -1,15 +1,15 @@
 import 'package:bidding_house/core/utils/imports.dart';
 
-class CustomCategoryItem extends StatefulWidget {
-  const CustomCategoryItem({super.key, required this.data});
+class SearchItem extends StatefulWidget {
+  const SearchItem({super.key, required this.data});
 
   final Map data;
 
   @override
-  CustomCategoryItemState createState() => CustomCategoryItemState();
+  SearchItemState createState() => SearchItemState();
 }
 
-class CustomCategoryItemState extends State<CustomCategoryItem> {
+class SearchItemState extends State<SearchItem> {
   late Duration isSold = const Duration();
 
   @override
