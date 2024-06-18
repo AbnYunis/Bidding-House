@@ -19,7 +19,7 @@ class _CustomBNBState extends State<CustomBNB> {
     List<Widget> screens = [
       const HomeView(),
       //const AuctionView(),
-      SearchView(),
+      const   SearchView(),
       const BidsView(),
       const ProfileView(),
     ];

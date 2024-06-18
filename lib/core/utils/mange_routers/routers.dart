@@ -6,6 +6,7 @@ abstract class Routers {
   static const category = '/category';
   static const auction = '/auction';
   static const payment = '/payment';
+  static const profile = '/profile';
   static const addPost = '/addPost';
   static const biddingNow = '/biddingNow';
   static GoRoute goRouteFade(Widget screen, String path) {

@@ -1,5 +1,7 @@
 import 'package:bidding_house/core/utils/imports.dart';
 
+import '../../../features/profile/presentation/views/profile_view.dart';
+
 abstract class AppRouter {
   static final router = GoRouter(
     routes: [
@@ -34,7 +36,16 @@ abstract class AppRouter {
           state: state,
           child: CategoryView(title:state.extra as String),
         ),
-      )
+      ),
+      GoRoute(
+        path: Routers.profile,
+        builder: (context, state) =>  ProfileView(userId:state.extra as String,),
+        pageBuilder: (context, state) => buildPageWithFadeTransition<void>(
+          context: context,
+          state: state,
+          child:  ProfileView(userId:state.extra as String,),
+        ),
+      ),
     ],
   );
 }

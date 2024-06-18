@@ -63,7 +63,7 @@ class _SplashBodyState extends State<SplashBody> {
           if (user == null) {
             GoRouter.of(context).go(Routers.auth);
           } else {
-            GoRouter.of(context).go(Routers.bnb);
+            GoRouter.of(context).go(Routers.bnb,);
           }
         });
       },
