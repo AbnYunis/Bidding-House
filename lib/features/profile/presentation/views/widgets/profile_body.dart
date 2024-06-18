@@ -48,7 +48,7 @@ class ProfileBody extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (state.post.data()!["posts"][0]['uId'] !=
+                    if (state.post.data()!["posts"].isNotEmpty && state.post.data()!["posts"][0]['uId'] !=
                         FirebaseAuth.instance.currentUser!.uid) ...[
                       SizedBoxApp(
                         h: 10.h(context),
