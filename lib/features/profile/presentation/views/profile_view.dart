@@ -26,7 +26,7 @@ class ProfileView extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back,color: Colors.white70,),),
           ),
-          body: ProfileBody(),
+          body: const ProfileBody(),
         ),
       ),
     );
