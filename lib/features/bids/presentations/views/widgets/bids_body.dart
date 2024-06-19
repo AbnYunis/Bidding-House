@@ -166,7 +166,7 @@ class _MyBidItemState extends State<MyBidItem> {
                             height: 25.h(context),
                             minWidth: 30.w(context),
                             onPressed: () {
-                              GoRouter.of(context).go(Routers.biddingNow,extra: widget.post); ;
+                              GoRouter.of(context).push(Routers.biddingNow,extra: widget.post); ;
                             },
                             color: Colors.green,
                             shape: RoundedRectangleBorder(
