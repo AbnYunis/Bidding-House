@@ -23,7 +23,10 @@ class GetPostCubit extends Cubit<GetPostState> {
           .get();
 
 
-      emit(GetPostSuccess(response.data()!['posts']));
+      emit(GetPostSuccess(response.data()!['posts'].where((item) {
+        DateTime itemDate = DateTime.parse(item['date']);
+        return itemDate.isAfter( DateTime.now()) || itemDate.isAtSameMomentAs( DateTime.now());
+      }).toList()));
     } catch (e) {
       if (kDebugMode) {
         print('Error: $e');

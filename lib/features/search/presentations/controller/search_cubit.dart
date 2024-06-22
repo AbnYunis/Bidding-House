@@ -9,14 +9,21 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> getSearch(String value) async {
     try {
+      if (value.isEmpty||value==' ') {
+        filteredResults.clear();
+        emit(SearchSuccess());
+        return;
+      }
       emit(SearchLoading());
       var res = await FirebaseFirestore.instance
           .collection('Search')
           .doc('AllPosts')
           .get();
-       filteredResults.clear();
+      filteredResults.clear();
       for (var doc in res.data()!['posts']) {
-        if (doc['desc'].contains(value)) {
+        if (doc['desc'].contains(value) &&
+                DateTime.parse(doc['date']).isAfter(DateTime.now()) ||
+            DateTime.parse(doc['date']).isAtSameMomentAs(DateTime.now())) {
           filteredResults.add(doc);
         }
       }

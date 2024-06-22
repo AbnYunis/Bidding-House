@@ -1,3 +1,4 @@
+import 'package:bidding_house/core/utils/function/load_image.dart';
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/core/utils/widgets/custom_snackbar.dart';
 import 'package:bidding_house/features/auth/presentations/controller/auth_cubit.dart';
@@ -9,12 +10,16 @@ class AuthBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var formKey = GlobalKey<FormState>();
+     List<File> image=[];
     TextEditingController emailController = TextEditingController();
     TextEditingController passController = TextEditingController();
     TextEditingController nameController = TextEditingController();
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthFailure) {
+          return snackBar(state.message, context, Colors.red);
+        }
+        if (state is UploadImageFailure) {
           return snackBar(state.message, context, Colors.red);
         }
         if (state is AuthSuccess) {
@@ -32,6 +37,21 @@ class AuthBody extends StatelessWidget {
                 key: formKey,
                 child: Column(
                   children: [
+                    GestureDetector(
+                      onTap: () {
+                        chooseImages(context).then((value) {
+                          image = value;
+                          BlocProvider.of<AuthCubit>(context).upLoadImage(value);
+                                                },);
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.black,
+                        radius: 60.w(context),
+                        child: image.isEmpty ? Image.asset(AssetService.splash2) : Image.file(
+                          image[0],
+                          height: 120.h(context),
+                        ),),
+                    ),
                     TextFormWithName(
                       controller: emailController,
                       text: "jimny@bonder.com",
