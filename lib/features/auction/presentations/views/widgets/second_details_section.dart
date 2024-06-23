@@ -3,6 +3,7 @@ import 'package:bidding_house/features/bid/presentation/views/widgets/bidding_pe
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/imports.dart';
+import '../../../../profile/presentation/controller/profile_cubit.dart';
 
 class SecondDetailsSection extends StatelessWidget {
   final Map<String, dynamic> data;
@@ -30,21 +31,51 @@ class SecondDetailsSection extends StatelessWidget {
               SizedBoxApp(
                 h: 5.h(context),
               ),
-              Row(
-                children: [
-                  const CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2of0Y-HF1rRZGFR0XpuOU9f40bcLqQEUgaQ&s'),
-                  ),
-                  SizedBoxApp(
-                    w: 7.w(context),
-                  ),
-                  Text(
-                    'Milinda Peterson',
-                    style:
-                        AppTextStyles.style14_400(context, CustomColor.white),
-                  ),
-                ],
+              BlocProvider(
+                create: (context) =>
+                ProfileCubit()..getProfile(id: data["data"]["posts"][index]["uId"]),
+                child: BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    if (state is ProfileLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is ProfileSuccess) {
+                      return Row(
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                state.post.data()!["profileImage"]),
+                          ),
+                          SizedBoxApp(
+                            w: 7.w(context),
+                          ),
+                          Text(
+                            state.post.data()!["username"],
+                            style: AppTextStyles.style14_400(
+                                context, CustomColor.white),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Row(
+                        children: [
+                          const CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  'https://cdn-icons-png.flaticon.com/512/3135/3135715.png')),
+                          SizedBoxApp(
+                            w: 7.w(context),
+                          ),
+                          Text(
+                            'User Name',
+                            style: AppTextStyles.style14_400(
+                                context, CustomColor.white),
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
               ),
               SizedBoxApp(
                 h: 20.w(context),

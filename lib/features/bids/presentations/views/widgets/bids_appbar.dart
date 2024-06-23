@@ -5,16 +5,8 @@ class BidsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButton(
-          icon: const Icon(Icons.arrow_circle_left_outlined,color: Colors.white,),
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
-        ),
-        SizedBoxApp(
-          w: 90.w(context),
-        ),
         Text(
           "My Bids",
           style: AppTextStyles.style20_800(context, CustomColor.white),
