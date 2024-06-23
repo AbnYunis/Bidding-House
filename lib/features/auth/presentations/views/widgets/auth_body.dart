@@ -10,7 +10,7 @@ class AuthBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var formKey = GlobalKey<FormState>();
-     List<File> image=[];
+    List<File> image = [];
     TextEditingController emailController = TextEditingController();
     TextEditingController passController = TextEditingController();
     TextEditingController nameController = TextEditingController();
@@ -37,21 +37,26 @@ class AuthBody extends StatelessWidget {
                 key: formKey,
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        chooseImages(context).then((value) {
-                          image = value;
-                          BlocProvider.of<AuthCubit>(context).upLoadImage(value);
-                                                },);
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 60.w(context),
-                        child: image.isEmpty ? Image.asset(AssetService.splash2) : Image.file(
-                          image[0],
-                          height: 120.h(context),
-                        ),),
-                    ),
+                    if (!login)
+                      GestureDetector(
+                        onTap: () {
+                          chooseImages(context).then(
+                            (value) {
+                              image = value;
+                            },
+                          );
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: 40.w(context),
+                          child: image.isEmpty
+                              ? Image.network(
+                                  'https://cdn-icons-png.flaticon.com/512/3135/3135715.png')
+                              : Image.file(
+                                  image[0],
+                                ),
+                        ),
+                      ),
                     TextFormWithName(
                       controller: emailController,
                       text: "jimny@bonder.com",
@@ -109,11 +114,17 @@ class AuthBody extends StatelessWidget {
                                 onPressed: () async {
                                   if (formKey.currentState!.validate()) {
                                     if (login != true) {
-                                      BlocProvider.of<AuthCubit>(context)
-                                          .signUp(
-                                              emailController.text,
-                                              passController.text,
-                                              nameController.text);
+                                      if (image.isNotEmpty) {
+                                        BlocProvider.of<AuthCubit>(context)
+                                            .signUp(
+                                                emailController.text,
+                                                passController.text,
+                                                nameController.text,
+                                                image[0]);
+                                      } else {
+                                        snackBar('Please Choose an image',
+                                            context, Colors.blue);
+                                      }
                                     } else {
                                       BlocProvider.of<AuthCubit>(context).logIn(
                                         emailController.text,

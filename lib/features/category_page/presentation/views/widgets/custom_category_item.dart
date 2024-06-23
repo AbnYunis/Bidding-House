@@ -120,9 +120,9 @@ class CustomCategoryItemState extends State<CustomCategoryItem> {
             child: CircleAvatar(
               radius: 20.w(context),
               backgroundImage: const NetworkImage(
-                  "https://ensemble.cms.vt.edu/content/ensemble_cms_vt_edu/en/docs/cms-utility-classes/transparent-bg/jcr:content/content/adaptiveimage.transform/m-medium/image.gif"),
+                  "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"),
             ),
-          )
+          ),
         ],
       ),
     );

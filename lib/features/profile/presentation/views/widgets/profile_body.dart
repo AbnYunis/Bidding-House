@@ -31,19 +31,9 @@ class ProfileBody extends StatelessWidget {
                             h: 10.h(context),
                           ),
                           CircleAvatar(
+                            radius: 40.w(context),
                             backgroundColor: Colors.white,
-                            radius: 30.w(context),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.black,
-                              radius: 27.w(context),
-                              child: Icon(
-                                Icons.perm_identity,
-                                color: Colors.white,
-                                size: 50.w(
-                                  context,
-                                ),
-                              ),
-                            ),
+                            backgroundImage: NetworkImage(state.post.data()!["profileImage"]),
                           ),
                         ],
                       ),
