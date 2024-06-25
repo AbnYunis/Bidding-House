@@ -12,7 +12,6 @@ class SecondDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int index = data["index"];
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -25,7 +24,7 @@ class SecondDetailsSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                data["data"]["posts"][index]["title"],
+                data["data"]["title"],
                 style: AppTextStyles.style24_700(context, CustomColor.white),
               ),
               SizedBoxApp(
@@ -33,7 +32,7 @@ class SecondDetailsSection extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) =>
-                ProfileCubit()..getProfile(id: data["data"]["posts"][index]["uId"]),
+                ProfileCubit()..getProfile(id: data["data"]["uId"]),
                 child: BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
                     if (state is ProfileLoading) {
@@ -85,7 +84,7 @@ class SecondDetailsSection extends StatelessWidget {
                 style: AppTextStyles.style14_800(context, CustomColor.yellow),
               ),
               Text(
-                data["data"]["posts"][index]["desc"],
+                data["data"]["desc"],
                 style: AppTextStyles.style14_400(context, CustomColor.white),
               ),
               SizedBoxApp(
@@ -100,7 +99,7 @@ class SecondDetailsSection extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => BiddingNowCubit()
-                  ..getBiddingPeople(data["data"]["posts"][index]["id"]),
+                  ..getBiddingPeople(data["data"]["id"]),
                 child: BlocBuilder<BiddingNowCubit, BiddingNowState>(
                   builder: (context, state) {
                     if (state is BiddingNowFailure) {

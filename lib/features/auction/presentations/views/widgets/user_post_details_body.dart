@@ -10,14 +10,13 @@ class UserPostDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int index = data["index"];
     return Stack(
       children: [
         Column(
           children: [
             Expanded(
               child: ImagesSection(
-                images: data["data"]["posts"][index]["images"],
+                images: data["data"]["images"],
               ),
             ),
             Expanded(
