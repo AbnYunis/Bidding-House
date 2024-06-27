@@ -4,6 +4,7 @@ import 'package:bidding_house/features/add_post/presentations/controllers/add_po
 import 'package:bidding_house/features/add_post/presentations/views/widgets/date_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/function/show_dialog.dart';
 import '../../../../../core/utils/widgets/custom_snackbar.dart';
 
 class AddPostBody extends StatelessWidget {
@@ -34,18 +35,7 @@ class AddPostBody extends StatelessWidget {
                 key:formKey,
                 child: Column(
                   children: [
-                    GridView.count(
-                      shrinkWrap: true,
-                      crossAxisCount: 3,
-                      children: List.generate(file.length, (index) {
-                        File image = file[index];
-                        return Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 5.0.w(context)),
-                          child: Image.file(image, fit: BoxFit.cover),
-                        );
-                      }),
-                    ),
+                    ImageGridView(files: file),
                     SizedBoxApp(
                       h: 20.h(context),
                     ),
@@ -95,27 +85,7 @@ class AddPostBody extends StatelessWidget {
                     SizedBoxApp(
                       h: 20.h(context),
                     ),
-                    TextFormField(
-                      validator:(value) {
-                        if(value!.isEmpty){
-                          return "please enter location";
-                        }
-                        return null;
-                      },
-                      controller: locationController,
-                      onTap: () async {
-                        locationController.text =
-                            await requestLocationPermissionAndRetrieveLocation();
-                      },
-                      readOnly: true,
-                      style:
-                          AppTextStyles.style16_800(context, CustomColor.white),
-                      decoration: InputDecoration(
-                        hintText: "Click to add location",
-                        hintStyle:
-                            AppTextStyles.style14_800(context, CustomColor.grey),
-                      ),
-                    ),
+                    SelectLocation(locationController: locationController),
                     SizedBoxApp(
                       h: 20.h(context),
                     ),
@@ -240,6 +210,143 @@ class AddPostBody extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class SelectLocation extends StatefulWidget {
+  const SelectLocation({
+    super.key,
+    required this.locationController,
+  });
+
+  final TextEditingController locationController;
+
+  @override
+  State<SelectLocation> createState() => _SelectLocationState();
+}
+
+class _SelectLocationState extends State<SelectLocation> {
+  bool manually = false;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      validator:(value) {
+        if(value!.isEmpty){
+          return "please enter location";
+        }
+        return null;
+      },
+      controller: widget.locationController,
+      onTap: manually?null:()  {
+         showDialogFun(
+            context,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'The way of select your location details',
+                  style: AppTextStyles.style16_400(context, CustomColor.white),
+                ),
+                SizedBoxApp(
+                  h: 20.h(context),
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: () async {
+                          await requestLocationPermissionAndRetrieveLocation().then((value) {
+                            widget.locationController.text=value;
+                            context.pop();
+                          },);
+
+                        },
+                        child: Text(
+                          'Automatically',
+                          style:
+                          AppTextStyles.style16_400(context, CustomColor.white),
+                        )),
+                    const Spacer(),
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            manually=true;
+                          });
+
+                          context.pop();
+                        },
+                        child: Text(
+                          'Manually',
+                          style:
+                          AppTextStyles.style16_400(context, CustomColor.white),
+                        )),
+                  ],
+                )
+              ],
+            ),
+        );
+      },
+      readOnly: !manually,
+      style:
+          AppTextStyles.style16_800(context, CustomColor.white),
+      decoration: InputDecoration(
+        hintText: "Click to add location",
+        hintStyle:
+            AppTextStyles.style14_800(context, CustomColor.grey),
+      ),
+    );
+  }
+}
+
+class ImageGridView extends StatefulWidget {
+  final List<File> files;
+
+  const ImageGridView({super.key, required this.files});
+
+  @override
+  ImageGridViewState createState() => ImageGridViewState();
+}
+
+class ImageGridViewState extends State<ImageGridView> {
+  late List<File> fileList;
+
+  @override
+  void initState() {
+    super.initState();
+    fileList = widget.files;
+  }
+
+  void _removeItem(int index) {
+    if (fileList.length > 1) {
+      setState(() {
+        fileList.removeAt(index);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 3,
+      children: List.generate(fileList.length, (index) {
+        File image = fileList[index];
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5.0),
+          child: Stack(
+            children: [
+              Image.file(image, fit: BoxFit.cover),
+              Positioned(
+                right: 0,
+                child: GestureDetector(
+                  onTap: () => _removeItem(index),
+                  child: Icon(Icons.close, color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

@@ -112,4 +112,5 @@ class AddPostCubit extends Cubit<AddPostState> {
       emit(AddPostFailure(e.toString()));
     }
   }
+
 }

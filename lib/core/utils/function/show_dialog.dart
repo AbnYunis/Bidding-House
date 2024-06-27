@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:bidding_house/core/utils/imports.dart';
 
-Future showDialogFun(context,widget,h,w){
+Future showDialogFun(context,widget){
    return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
+        backgroundColor: Colors.blueGrey,
         contentPadding: EdgeInsets.symmetric(
-            horizontal: w * 0.04, vertical: h * 0.02),
+            horizontal: 12.w(context), vertical: 12.h(context)),
         content:  widget,
       );
     },
