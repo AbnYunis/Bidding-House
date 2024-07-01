@@ -3,7 +3,6 @@ import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/add_post/presentations/controllers/add_post_cubit.dart';
 import 'package:bidding_house/features/add_post/presentations/views/widgets/date_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../core/utils/function/show_dialog.dart';
 import '../../../../../core/utils/widgets/custom_snackbar.dart';
 
@@ -21,6 +20,9 @@ class AddPostBody extends StatelessWidget {
     TextEditingController titleController = TextEditingController();
     TextEditingController dateController = TextEditingController();
     TextEditingController priceController = TextEditingController();
+    final GlobalKey<DateState> dateWidgetKey = GlobalKey<DateState>();
+    final GlobalKey<MyDropDownState> dropDownKey = GlobalKey<MyDropDownState>();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 26.w(context)),
       child: Column(
@@ -32,7 +34,7 @@ class AddPostBody extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Form(
-                key:formKey,
+                key: formKey,
                 child: Column(
                   children: [
                     ImageGridView(files: file),
@@ -40,46 +42,53 @@ class AddPostBody extends StatelessWidget {
                       h: 20.h(context),
                     ),
                     TextFormField(
-                      validator:(value) {
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "please enter title";
                         }
                         return null;
                       },
                       controller: titleController,
                       style:
-                          AppTextStyles.style16_800(context, CustomColor.white),
+                      AppTextStyles.style16_800(context, CustomColor.white),
                       decoration: InputDecoration(
                         hintText: "title",
                         hintStyle:
-                            AppTextStyles.style14_800(context, CustomColor.grey),
+                        AppTextStyles.style14_800(context, CustomColor.grey),
                       ),
                     ),
                     SizedBoxApp(
                       h: 20.h(context),
                     ),
                     TextFormField(
-                      validator:(value) {
-                        if(value!.isEmpty){
+                      validator: (value) {
+                        if (value!.isEmpty) {
                           return "please enter caption";
                         }
                         return null;
                       },
                       controller: captionController,
                       style:
-                          AppTextStyles.style16_800(context, CustomColor.white),
+                      AppTextStyles.style16_800(context, CustomColor.white),
                       decoration: InputDecoration(
                         hintText: "write a caption or description",
                         hintStyle:
-                            AppTextStyles.style14_800(context, CustomColor.grey),
+                        AppTextStyles.style14_800(context, CustomColor.grey),
                       ),
                     ),
                     SizedBoxApp(
                       h: 20.h(context),
                     ),
                     MyDropDown(
+                      key: dropDownKey,
                       classification: (p0) {
                         typeController.text = p0!;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "please select a type";
+                        }
+                        return null;
                       },
                     ),
                     SizedBoxApp(
@@ -101,8 +110,8 @@ class AddPostBody extends StatelessWidget {
                         ),
                         Expanded(
                           child: TextFormField(
-                            validator:(value) {
-                              if(value!.isEmpty){
+                            validator: (value) {
+                              if (value!.isEmpty) {
                                 return "please enter price";
                               }
                               return null;
@@ -113,7 +122,7 @@ class AddPostBody extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius:
-                                    BorderRadius.circular(30.w(context)),
+                                BorderRadius.circular(30.w(context)),
                               ),
                               contentPadding: EdgeInsets.all(10.h(context)),
                               fillColor: const Color(0xFF73807F),
@@ -122,6 +131,7 @@ class AddPostBody extends StatelessWidget {
                               hintStyle: AppTextStyles.style14_800(
                                   context, CustomColor.grey),
                             ),
+                            keyboardType:TextInputType.number,
                           ),
                         ),
                         SizedBoxApp(
@@ -146,8 +156,15 @@ class AddPostBody extends StatelessWidget {
                         ),
                         const Spacer(),
                         DateWidget(
+                          key: dateWidgetKey,
                           date: (p0) {
                             dateController.text = p0!;
+                          },
+                          validator: (value) {
+                            if (value == "day\\mon\\year") {
+                              return "please select a date";
+                            }
+                            return null;
                           },
                         )
                       ],
@@ -161,7 +178,7 @@ class AddPostBody extends StatelessWidget {
                           snackBar(state.message, context, Colors.white);
                           context.pop();
                         }
-                        if(state is AddPostFailure){
+                        if (state is AddPostFailure) {
                           snackBar(state.message, context, Colors.red);
                         }
                       },
@@ -174,24 +191,28 @@ class AddPostBody extends StatelessWidget {
                           return Center(
                             child: MaterialButton(
                               onPressed: () {
-                                if(formKey.currentState!.validate()){
-                                  BlocProvider.of<AddPostCubit>(context).addPost(
-                                      titleController.text,
-                                      file,
-                                      captionController.text,
-                                      typeController.text,
-                                      locationController.text,
-                                      priceController.text,
-                                      dateController.text);
+                                if (formKey.currentState!.validate()) {
+                                  dateWidgetKey.currentState!.validate();
+                                  dropDownKey.currentState!.validate();
+                                  if (dateWidgetKey.currentState!.validationMessage == null &&
+                                      dropDownKey.currentState!.validationMessage == null) {
+                                    BlocProvider.of<AddPostCubit>(context).addPost(
+                                        titleController.text,
+                                        file,
+                                        captionController.text,
+                                        typeController.text,
+                                        locationController.text,
+                                        priceController.text,
+                                        dateController.text);
+                                  }
                                 }
-
                               },
                               color: Colors.blueAccent,
                               minWidth: 153.w(context),
                               height: 40.h(context),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
-                                    BorderRadius.circular(30.w(context)),
+                                BorderRadius.circular(30.w(context)),
                               ),
                               child: Text(
                                 'share',
@@ -214,6 +235,7 @@ class AddPostBody extends StatelessWidget {
   }
 }
 
+
 class SelectLocation extends StatefulWidget {
   const SelectLocation({
     super.key,
@@ -231,68 +253,65 @@ class _SelectLocationState extends State<SelectLocation> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator:(value) {
-        if(value!.isEmpty){
+      validator: (value) {
+        if (value!.isEmpty) {
           return "please enter location";
         }
         return null;
       },
       controller: widget.locationController,
-      onTap: manually?null:()  {
-         showDialogFun(
-            context,
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'The way of select your location details',
-                  style: AppTextStyles.style16_400(context, CustomColor.white),
-                ),
-                SizedBoxApp(
-                  h: 20.h(context),
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () async {
-                          await requestLocationPermissionAndRetrieveLocation().then((value) {
-                            widget.locationController.text=value;
-                            context.pop();
-                          },);
-
-                        },
-                        child: Text(
-                          'Automatically',
-                          style:
-                          AppTextStyles.style16_400(context, CustomColor.white),
-                        )),
-                    const Spacer(),
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            manually=true;
-                          });
-
+      onTap: manually ? null : () {
+        showDialogFun(
+          context,
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'The way of select your location details',
+                style: AppTextStyles.style16_400(context, CustomColor.white),
+              ),
+              SizedBoxApp(
+                h: 20.h(context),
+              ),
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () async {
+                        await requestLocationPermissionAndRetrieveLocation().then((value) {
+                          widget.locationController.text = value;
                           context.pop();
-                        },
-                        child: Text(
-                          'Manually',
-                          style:
-                          AppTextStyles.style16_400(context, CustomColor.white),
-                        )),
-                  ],
-                )
-              ],
-            ),
+                        });
+                      },
+                      child: Text(
+                        'Automatically',
+                        style:
+                        AppTextStyles.style16_400(context, CustomColor.white),
+                      )),
+                  const Spacer(),
+                  TextButton(
+                      onPressed: () {
+                        setState(() {
+                          manually = true;
+                        });
+
+                        context.pop();
+                      },
+                      child: Text(
+                        'Manually',
+                        style:
+                        AppTextStyles.style16_400(context, CustomColor.white),
+                      )),
+                ],
+              )
+            ],
+          ),
         );
       },
       readOnly: !manually,
-      style:
-          AppTextStyles.style16_800(context, CustomColor.white),
+      style: AppTextStyles.style16_800(context, CustomColor.white),
       decoration: InputDecoration(
         hintText: "Click to add location",
-        hintStyle:
-            AppTextStyles.style14_800(context, CustomColor.grey),
+        hintStyle: AppTextStyles.style14_800(context, CustomColor.grey),
       ),
     );
   }
@@ -332,7 +351,7 @@ class ImageGridViewState extends State<ImageGridView> {
       children: List.generate(fileList.length, (index) {
         File image = fileList[index];
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
           child: Stack(
             children: [
               Image.file(image, fit: BoxFit.cover),
@@ -340,7 +359,7 @@ class ImageGridViewState extends State<ImageGridView> {
                 right: 0,
                 child: GestureDetector(
                   onTap: () => _removeItem(index),
-                  child: Icon(Icons.close, color: Colors.red),
+                  child: const Icon(Icons.close, color: Colors.red),
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/bids/presentations/controllers/my_bids_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 
 class BidsBody extends StatelessWidget {
   const BidsBody({super.key});
@@ -21,6 +22,10 @@ class BidsBody extends StatelessWidget {
                 if (state is MyBidsLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
+                  );
+                } else if (state is MyBidsFailure) {
+                  return Center(
+                    child: Text(state.message),
                   );
                 } else {
                   final posts = myBidsCubit.posts;
@@ -65,16 +70,17 @@ class MyBidItem extends StatefulWidget {
 }
 
 class _MyBidItemState extends State<MyBidItem> {
-  late dynamic myBidsCubit;
+  late MyBidsCubit myBidsCubit;
+
   @override
   void initState() {
+    super.initState();
     myBidsCubit = BlocProvider.of<MyBidsCubit>(context);
 
-    // Ensure getBiddingPeople is called for each post
-    Future.microtask(() {
+    // Ensure getBiddingPeople is called for each post after the widget is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       myBidsCubit.getBiddingPeople(widget.post["id"]);
     });
-    super.initState();
   }
 
   @override
@@ -87,7 +93,7 @@ class _MyBidItemState extends State<MyBidItem> {
             imageUrl: widget.post["images"][0],
           ),
           SizedBoxApp(w: 10.w(context)),
-          Expanded(  // Use Expanded here to ensure the remaining space is filled
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -105,7 +111,6 @@ class _MyBidItemState extends State<MyBidItem> {
                   builder: (context, state) {
                     final soldForYou = myBidsCubit.soldForYou;
 
-                    // Check if the index is valid
                     if (widget.index >= myBidsCubit.soldFor.length) {
                       return const SizedBox.shrink();
                     } else if (DateTime.parse(widget.post['date'])
@@ -126,8 +131,7 @@ class _MyBidItemState extends State<MyBidItem> {
                             height: 25.h(context),
                             minWidth: 50.w(context),
                             onPressed: () {
-                              GoRouter.of(context).go(Routers.payment) ;
-
+                              GoRouter.of(context).go(Routers.payment);
                             },
                             color: soldForYou ? Colors.green : Colors.red,
                             shape: RoundedRectangleBorder(
@@ -143,7 +147,7 @@ class _MyBidItemState extends State<MyBidItem> {
                     } else {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,  // Set mainAxisSize to min
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Row(
                             children: [
@@ -156,9 +160,7 @@ class _MyBidItemState extends State<MyBidItem> {
                               ),
                               CountdownTimer(
                                 deadlineString: widget.post["date"],
-                                onTimerEnd: (p0) {
-
-                                },
+                                onTimerEnd: (p0) {},
                               ),
                             ],
                           ),
@@ -166,7 +168,8 @@ class _MyBidItemState extends State<MyBidItem> {
                             height: 25.h(context),
                             minWidth: 30.w(context),
                             onPressed: () {
-                              GoRouter.of(context).push(Routers.biddingNow,extra: widget.post); ;
+                              GoRouter.of(context)
+                                  .push(Routers.biddingNow, extra: widget.post);
                             },
                             color: Colors.green,
                             shape: RoundedRectangleBorder(
