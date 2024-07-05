@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:bidding_house/core/utils/imports.dart';
+import 'package:bidding_house/core/utils/shared_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -53,6 +55,7 @@ class AuthCubit extends Cubit<AuthState> {
         'profileImage': profileImage,
         'email': email,
       });
+      SharedData.saveUserImage(userImage: profileImage);
       emit(AuthSuccess('Account created successfully'));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

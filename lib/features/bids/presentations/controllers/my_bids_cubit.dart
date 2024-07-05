@@ -12,7 +12,7 @@ class MyBidsCubit extends Cubit<MyBidsState> {
   List posts = [];
   List soldFor = [];
 
-  Future<void> getBiddingPeople(String id) async {
+  Future<void> getBiddingPeople(String id, int index) async {
     if (isClosed) return; // Check if the cubit is closed before proceeding
     emit(MyBidsUpdateLoading());
     try {
@@ -31,12 +31,22 @@ class MyBidsCubit extends Cubit<MyBidsState> {
       }
 
       List<Map<String, dynamic>> itemList =
-          biddingPeople.map((e) => e as Map<String, dynamic>).toList();
+      biddingPeople.map((e) => e as Map<String, dynamic>).toList();
       itemList.sort(
-          (a, b) => int.parse(b['price']).compareTo(int.parse(a['price'])));
-      soldForYou =
-          FirebaseAuth.instance.currentUser!.email == itemList[0]['email'];
-      soldFor.add(itemList[0]);
+              (a, b) => int.parse(b['price']).compareTo(int.parse(a['price'])));
+
+      if (index < 0) {
+        throw ArgumentError('Index cannot be negative');
+      }
+
+      if (index < soldFor.length) {
+        soldFor[index] = itemList[0];
+      } else {
+        // Extend the list with null values up to the desired index
+        soldFor.length = index + 1;
+        soldFor[index] = itemList[0];
+      }
+
       if (!isClosed) emit(MyBidsUpdateSuccess(itemList));
     } catch (e) {
       if (kDebugMode) {

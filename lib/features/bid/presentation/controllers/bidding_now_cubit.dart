@@ -1,4 +1,4 @@
-
+import 'package:bidding_house/core/utils/shared_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -29,10 +29,12 @@ class BiddingNowCubit extends Cubit<BiddingNowState> {
       }
 
       // Ensure each item is a Map<String, dynamic>
-      List<Map<String, dynamic>> itemList = biddingPeople.map((e) => e as Map<String, dynamic>).toList();
+      List<Map<String, dynamic>> itemList =
+          biddingPeople.map((e) => e as Map<String, dynamic>).toList();
 
       // Sort the list by price in descending order
-      itemList.sort((a, b) => int.parse(b['price']).compareTo(int.parse(a['price'])));
+      itemList.sort(
+          (a, b) => int.parse(b['price']).compareTo(int.parse(a['price'])));
 
       emit(BiddingNowSuccess(itemList));
     } catch (e) {
@@ -43,7 +45,8 @@ class BiddingNowCubit extends Cubit<BiddingNowState> {
     }
   }
 
-  Future<void> updateBiddingPeople(final String price, final String id,Map data) async {
+  Future<void> updateBiddingPeople(
+      final String price, final String id, Map data) async {
     emit(BiddingNowUpdateLoading());
 
     try {
@@ -57,6 +60,7 @@ class BiddingNowCubit extends Cubit<BiddingNowState> {
           {
             "email": FirebaseAuth.instance.currentUser!.email.toString(),
             "price": price,
+            "userImage": SharedData.getUserImage(),
           }
         ]),
       });
@@ -64,12 +68,11 @@ class BiddingNowCubit extends Cubit<BiddingNowState> {
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid.toString())
           .update({
-        "userBidding": FieldValue.arrayUnion([
-          data
-        ]),
+        "userBidding": FieldValue.arrayUnion([data]),
       });
       emit(BiddingNowUpdateSuccess());
-      await getBiddingPeople(id); // Ensure the data is fetched and state updated after the update
+      await getBiddingPeople(
+          id); // Ensure the data is fetched and state updated after the update
     } catch (e) {
       if (kDebugMode) {
         print('Error: $e');

@@ -60,6 +60,7 @@ dependencies:
   device_preview: ^1.2.0
   uuid: ^4.4.0
   flutter_rating: ^2.0.2
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

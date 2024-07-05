@@ -1,7 +1,7 @@
 import 'package:bidding_house/core/utils/imports.dart';
 import 'package:bidding_house/features/bids/presentations/controllers/my_bids_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/material.dart';
 
 class BidsBody extends StatelessWidget {
   const BidsBody({super.key});
@@ -79,7 +79,7 @@ class _MyBidItemState extends State<MyBidItem> {
 
     // Ensure getBiddingPeople is called for each post after the widget is built
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      myBidsCubit.getBiddingPeople(widget.post["id"]);
+      myBidsCubit.getBiddingPeople(widget.post["id"], widget.index);
     });
   }
 
@@ -109,37 +109,46 @@ class _MyBidItemState extends State<MyBidItem> {
                 SizedBoxApp(h: 10.h(context)),
                 BlocBuilder<MyBidsCubit, MyBidsState>(
                   builder: (context, state) {
-                    final soldForYou = myBidsCubit.soldForYou;
-
                     if (widget.index >= myBidsCubit.soldFor.length) {
                       return const SizedBox.shrink();
                     } else if (DateTime.parse(widget.post['date'])
                         .difference(DateTime.now())
                         .isNegative) {
                       final soldForPrice =
-                      myBidsCubit.soldFor[widget.index]["price"];
+                          myBidsCubit.soldFor[widget.index]["price"];
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Sold For \$$soldForPrice",
-                            style: AppTextStyles.style12_800(context, CustomColor.white),
+                            "Sold For \$${soldForPrice ?? '0'}",
+                            style: AppTextStyles.style12_800(
+                                context, CustomColor.white),
                           ),
                           SizedBoxApp(h: 10.h(context)),
                           MaterialButton(
                             height: 25.h(context),
                             minWidth: 50.w(context),
                             onPressed: () {
-                              GoRouter.of(context).go(Routers.payment);
+                              if (FirebaseAuth.instance.currentUser!.email ==
+                                  myBidsCubit.soldFor[widget.index]['email']) {
+                                GoRouter.of(context).push(Routers.payment);
+                              }
                             },
-                            color: soldForYou ? Colors.green : Colors.red,
+                            color: FirebaseAuth.instance.currentUser!.email ==
+                                    myBidsCubit.soldFor[widget.index]['email']
+                                ? Colors.green
+                                : Colors.red,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(7),
                             ),
                             child: Text(
-                              soldForYou ? 'You have won' : 'You have not won',
-                              style: const TextStyle(fontSize: 9, color: Colors.white),
+                              FirebaseAuth.instance.currentUser!.email ==
+                                      myBidsCubit.soldFor[widget.index]['email']
+                                  ? 'You have won'
+                                  : 'You have not won',
+                              style: const TextStyle(
+                                  fontSize: 9, color: Colors.white),
                             ),
                           ),
                         ],
@@ -176,7 +185,8 @@ class _MyBidItemState extends State<MyBidItem> {
                                 borderRadius: BorderRadius.circular(7)),
                             child: const Text(
                               'Bid Now',
-                              style: TextStyle(fontSize: 9, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 9, color: Colors.white),
                             ),
                           ),
                         ],
