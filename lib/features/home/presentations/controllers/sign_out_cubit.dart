@@ -19,11 +19,13 @@ class SignOutCubit extends Cubit<SignOutState> {
           'Opps! , There was an error ,please try again later.'));
     }
   }
+
   Future<void> getData() async {
     try {
       emit(HomeDataLoading());
-      CollectionReference collectionReference=FirebaseFirestore.instance.collection("classification");
-      var res =await collectionReference.get();
+      CollectionReference collectionReference =
+          FirebaseFirestore.instance.collection("classification");
+      var res = await collectionReference.get();
       emit(HomeDataSuccess(res));
     } catch (e) {
       emit(HomeDataFailure(

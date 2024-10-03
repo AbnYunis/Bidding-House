@@ -33,13 +33,15 @@ class ProfileBody extends StatelessWidget {
                           CircleAvatar(
                             radius: 40.w(context),
                             backgroundColor: Colors.white,
-                            backgroundImage: NetworkImage(state.post.data()!["profileImage"]),
+                            backgroundImage: NetworkImage(
+                                state.post.data()!["profileImage"]),
                           ),
                         ],
                       ),
                     ),
-                    if (state.post.data()!["posts"].isNotEmpty && state.post.data()!["posts"][0]['uId'] !=
-                        FirebaseAuth.instance.currentUser!.uid) ...[
+                    if (state.post.data()!["posts"].isNotEmpty &&
+                        state.post.data()!["posts"][0]['uId'] !=
+                            FirebaseAuth.instance.currentUser!.uid) ...[
                       SizedBoxApp(
                         h: 10.h(context),
                       ),

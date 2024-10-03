@@ -9,7 +9,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> getSearch(String value) async {
     try {
-      if (value.isEmpty||value==' ') {
+      if (value.isEmpty || value == ' ') {
         filteredResults.clear();
         emit(SearchSuccess());
         return;

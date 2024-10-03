@@ -36,7 +36,7 @@ class _PaymentBodyState extends State<PaymentBody> {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
                       // Ensure the navigation method matches your router setup
-                       GoRouter.of(context).go(Routers.bnb) ;
+                      GoRouter.of(context).go(Routers.bnb);
                     } else {
                       setState(() {
                         autovalidateMode = AutovalidateMode.always;
@@ -44,12 +44,16 @@ class _PaymentBodyState extends State<PaymentBody> {
                     }
                   },
                   color: Colors.green,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  height: 50, // Assuming you have a method to convert size
-                  minWidth: 270, // Assuming you have a method to convert size
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  height: 50,
+                  // Assuming you have a method to convert size
+                  minWidth: 270,
+                  // Assuming you have a method to convert size
                   child: Text(
                     'Payment',
-                    style: AppTextStyles.style16_800(context, CustomColor.white),
+                    style:
+                        AppTextStyles.style16_800(context, CustomColor.white),
                   ),
                 ),
               )),
