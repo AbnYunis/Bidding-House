@@ -22,6 +22,5 @@ The project follows a clean and organized folder structure, detailed in [lib_str
 
 ---
 
-This README provides an overview of the core components and structure for potential collaborators and developers. If you're interested in contributing or exploring the project, feel free to check out the codebase and open an issue for any queries.
 
 Happy Bidding! 🎉
