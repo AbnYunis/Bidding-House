@@ -1,6 +1,9 @@
 # 🏠 Bidding House
 
 **Bidding House** is a digital bidding application built using Flutter and Dart, integrated with Firebase for backend services. The app offers a seamless and intuitive platform for users to bid, track bids, and manage auctions, all within a sleek mobile interface.
+## 🎥 Demo
+
+[Watch the demo video](https://github.com/user-attachments/assets/973fc2b5-ef12-46aa-b316-8d9f22a3dea5)
 
 ## 🚀 Key Features:
 1. 🗂️ **All Bids**: View all available bidding types and relevant details.
